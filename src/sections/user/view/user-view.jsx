@@ -122,11 +122,11 @@ export default function UserPage() {
                 onRequestSort={handleSort}
                 onSelectAllClick={handleSelectAllClick}
                 headLabel={[
-                  { id: 'name', label: 'Name' },
-                  { id: 'company', label: 'Company' },
-                  { id: 'role', label: 'Role' },
-                  { id: 'isVerified', label: 'Verified', align: 'center' },
-                  { id: 'status', label: 'Status' },
+                  { id: 'name', label: 'Nombre' },
+                  { id: 'company', label: 'Compañía' },
+                  { id: 'role', label: 'Rol' },
+                  { id: 'isVerified', label: 'Verificado', align: 'center' },
+                  { id: 'status', label: 'Estado' },
                   { id: '' },
                 ]}
               />
