@@ -20,7 +20,7 @@ import { addVenta } from "../services/ventas.service";
 
 const { Option } = Select;
 
-export default function VentasForm({ onClose, isOpen }) {
+export default function VentasForm({ onClose }) {
   const [form] = Form.useForm();
   const [messageApi, contextHolder] = message.useMessage();
   const clients = useMemo(() => {
@@ -350,5 +350,4 @@ export default function VentasForm({ onClose, isOpen }) {
 
 VentasForm.propTypes = {
   onClose: PropTypes.func.isRequired,
-  isOpen: PropTypes.bool.isRequired,
 };
