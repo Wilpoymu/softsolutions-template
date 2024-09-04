@@ -6,6 +6,7 @@ import {
   UploadOutlined,
   UserOutlined,
   VideoCameraOutlined,
+  LoginOutlined,
 } from "@ant-design/icons";
 import { Button, Layout, Menu, theme } from "antd";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -29,6 +30,13 @@ const navItems = [
     label: "Ventas",
     //   disabled: true,
   },
+  {
+    key: "/login",
+    icon: <LoginOutlined />,
+    label: "Login",
+    //   disabled: true,
+  }
+
 ];
 
 const LayoutPage = ({ children }) => {

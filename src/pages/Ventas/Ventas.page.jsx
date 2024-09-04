@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Button } from "antd";
-import { VentasTable } from "../components/Tables";
-import { getVentas } from "../services/ventas.service";
-import VentasForm from "../components/VentasForm";
+import { VentasTable } from "../../components/Tables";
+import { getVentas } from "../../services/ventas.service";
+import VentasForm from "../../components/VentasForm";
 
 const VentasPage = () => {
   const [modalOpen, setModalOpen] = useState(false);

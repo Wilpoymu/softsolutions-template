@@ -1,8 +1,10 @@
 import { createBrowserRouter } from "react-router-dom";
 import LayoutPage from "./components/Layout";
-import ClientesPage from "./pages/Clientes.page";
-import ProductosPage from "./pages/Productos.page";
-import VentasPage from "./pages/Ventas.page";
+import ClientesPage from "./pages/Clientes/Clientes.page";
+import ProductosPage from "./pages/Productos/Productos.page";
+import VentasPage from "./pages/Ventas/Ventas.page";
+import LoginPage from "./pages/Login/Login.page";
+
 
 const router = createBrowserRouter([
   {
@@ -37,6 +39,14 @@ const router = createBrowserRouter([
       </LayoutPage>
     ),
   },
+  {
+    path: "/login",
+    element: (
+      <LayoutPage>
+        <LoginPage />
+      </LayoutPage>
+    ),
+  }
 ]);
 
 export default router;
