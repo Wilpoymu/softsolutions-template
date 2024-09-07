@@ -67,7 +67,9 @@ const LayoutPage = ({ children }) => {
     <Layout style={{ height: "100vh" }}>
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <div className="demo-logo-vertical" />
-        <h2 style={{ color: "white", textAlign: "center" }}>Softsolutions</h2>
+        {!collapsed && (
+          <h2 style={{ color: "white", textAlign: "center" }}>SoftSolutions</h2>
+        )}
         <Menu
           theme="dark"
           mode="inline"

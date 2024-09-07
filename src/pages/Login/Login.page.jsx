@@ -15,7 +15,7 @@ function LoginPage() {
       <div className="content">
         <div className="image-container">
           <img
-            src="https://www.panafargo.com/wp-content/uploads/2019/08/Distribuidoras-de-papeleria.jpg"
+            src="https://img.freepik.com/foto-gratis/coloridos-utiles-escolares-cesta-compra-pared-gris-espacio-texto-copia-pila-libros-coloridas-cubiertas-enmarcan-gafas-concepto-regresar-escuela-nuevo-ano-academico_73683-2221.jpg?t=st=1725750327~exp=1725753927~hmac=8ffda3406e99d6195c2b96fd15f09d75ce6f43cb443854646fb40dac82e2f0f3&w=740"
             alt="Login visual"
             className="login-image"
           />
