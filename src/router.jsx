@@ -4,16 +4,12 @@ import ClientesPage from "./pages/Clientes/Clientes.page";
 import ProductosPage from "./pages/Productos/Productos.page";
 import VentasPage from "./pages/Ventas/Ventas.page";
 import LoginPage from "./pages/Login/Login.page";
-
+import LandingView from "./pages/Landing/Landing.page";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: (
-      <LayoutPage>
-        <ClientesPage />
-      </LayoutPage>
-    ),
+    element: <LandingView />,
   },
   {
     path: "/clientes",
@@ -46,7 +42,7 @@ const router = createBrowserRouter([
         <LoginPage />
       </LayoutPage>
     ),
-  }
+  },
 ]);
 
 export default router;
