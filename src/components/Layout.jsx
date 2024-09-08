@@ -17,26 +17,44 @@ const navItems = [
     key: "/clientes",
     icon: <UserOutlined />,
     label: "Clientes",
+    children: [
+      {
+        key: "/clientes/nuevo",
+        label: "Nuevo Cliente",
+      },
+      {
+        key: "/clientes/lista",
+        label: "Lista de Clientes",
+      },
+    ],
   },
   {
     key: "/productos",
     icon: <VideoCameraOutlined />,
     label: "Productos",
-    //   disabled: true,
+    children: [
+      {
+        key: "/productos/nuevo",
+        label: "Nuevo Producto",
+      },
+      {
+        key: "/productos/lista",
+        label: "Lista de Productos",
+      },
+    ],
   },
   {
     key: "/ventas",
     icon: <UploadOutlined />,
     label: "Ventas",
-    //   disabled: true,
+    // Aquí no tiene submenú
   },
   {
     key: "/login",
     icon: <LoginOutlined />,
     label: "Login",
-    //   disabled: true,
-  }
-
+    // Aquí no tiene submenú
+  },
 ];
 
 const LayoutPage = ({ children }) => {
@@ -47,7 +65,6 @@ const LayoutPage = ({ children }) => {
 
   useEffect(() => {
     const item = navItems.find((item) => item.key === location.pathname);
-    console.log(item);
     if (item) {
       setSelectedTitle(item.label);
     } else {
@@ -58,22 +75,30 @@ const LayoutPage = ({ children }) => {
   const handleMenuClick = ({ key }) => {
     navigate(key); // Cambiar la URL al seleccionar un item
   };
-  //   const [selectedItem, setSelectedItem] = useState("1");
-  //   console.log(selectedItem);
+
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+
   return (
     <Layout style={{ height: "100vh" }}>
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <div className="demo-logo-vertical" />
-        {!collapsed && (
+        {!collapsed ? (
           <h2 style={{ color: "white", textAlign: "center" }}>SoftSolutions</h2>
+        ) : (
+          <div style={{ textAlign: "center", padding: "10px" }}>
+            <img 
+            src="https://grupomilsoluciones.com/wp-content/uploads/favicon.png" 
+            alt="Logo SoftSolutions"  
+            style={{ width: "40px", height: "40px" }}
+            />
+          </div>
         )}
         <Menu
           theme="dark"
           mode="inline"
-          selectedKeys={[location.pathname]} // Sincronizar el item seleccionado con la URL
+          selectedKeys={[location.pathname]}
           items={navItems}
           onClick={handleMenuClick}
         />
@@ -97,7 +122,7 @@ const LayoutPage = ({ children }) => {
               height: 64,
             }}
           />
-          <h1 style={{ color: "e0e0e0", marginLeft: 16 }}>{selectedTitle}</h1>
+          <h1 style={{ color: "#e0e0e0", marginLeft: 16 }}>{selectedTitle}</h1>
         </Header>
         <Content
           style={{
@@ -114,6 +139,7 @@ const LayoutPage = ({ children }) => {
     </Layout>
   );
 };
+
 export default LayoutPage;
 
 LayoutPage.propTypes = {
