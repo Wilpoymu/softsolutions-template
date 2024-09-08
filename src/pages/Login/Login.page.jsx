@@ -11,7 +11,7 @@ function LoginPage() {
   }
 
   return (
-    <div className="container">
+    <div className="login-container">
       <div className="content">
         <div className="image-container">
           <img
