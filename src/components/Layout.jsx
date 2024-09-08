@@ -17,29 +17,19 @@ const navItems = [
     key: "/clientes",
     icon: <UserOutlined />,
     label: "Clientes",
-    children: [
-      {
-        key: "/clientes/nuevo",
-        label: "Nuevo Cliente",
-      },
-      {
-        key: "/clientes/lista",
-        label: "Lista de Clientes",
-      },
-    ],
   },
   {
-    key: "/productos",
+    key: "/compras",
     icon: <VideoCameraOutlined />,
-    label: "Productos",
+    label: "Compras",
     children: [
       {
-        key: "/productos/nuevo",
-        label: "Nuevo Producto",
+        key: "/productos",
+        label: "Productos",
       },
       {
-        key: "/productos/lista",
-        label: "Lista de Productos",
+        key: "/proveedores",
+        label: "Proveedores",
       },
     ],
   },
@@ -61,10 +51,24 @@ const LayoutPage = ({ children }) => {
   const [collapsed, setCollapsed] = useState(false);
   const [selectedTitle, setSelectedTitle] = useState("");
   const navigate = useNavigate();
-  const location = useLocation();
+  const location = useLocation(); 
 
   useEffect(() => {
-    const item = navItems.find((item) => item.key === location.pathname);
+    const findItem = (items, path) => {
+      for (const item of items) {
+        if (item.key === path) {
+          return item;
+        }
+        if (item.children) {
+          const foundChild = findItem(item.children, path);
+          if (foundChild) {
+            return foundChild;
+          }
+        }
+      }
+      return null;
+    }
+    const item = findItem(navItems, location.pathname);
     if (item) {
       setSelectedTitle(item.label);
     } else {
@@ -85,7 +89,7 @@ const LayoutPage = ({ children }) => {
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <div className="demo-logo-vertical" />
         {!collapsed ? (
-          <h2 style={{ color: "white", textAlign: "center" }}>SoftSolutions</h2>
+          <h2 style={{ color: "white", textAlign: "center", padding: "15px" }}>SoftSolutions</h2>
         ) : (
           <div style={{ textAlign: "center", padding: "10px" }}>
             <img 
