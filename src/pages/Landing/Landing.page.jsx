@@ -6,7 +6,7 @@
 // import { bgGradient } from 'src/theme/css';
 
 import { Link } from 'react-router-dom';
-import './styles.css'
+import './styles.css';
 
 // ----------------------------------------------------------------------
 
@@ -15,9 +15,9 @@ export default function LandingView() {
 
   //   const router = useRouter();
 
-    // const handleClick = () => {
-    //   router.push('/dashboard');
-    // };
+  // const handleClick = () => {
+  //   router.push('/dashboard');
+  // };
 
   return (
     // <Box
@@ -68,18 +68,23 @@ export default function LandingView() {
       <section id="showCase" className="showCase">
         <div id="divOne" className="divOne">
           <picture>
-            <source media="(min-width: 768px)" srcSet="src/assets/images/3.png" />
+            <source
+              media="(min-width: 768px)"
+              srcSet="src/assets/images/3.png"
+            />
             <img className="picture" src="src/assets/images/3.png" alt="" />
           </picture>
           <article id="articleOne" className="articleOne">
             <h1>Grupo Mil Soluciones S.A.S</h1>
             <div id="divTwo" className="divTwo">
               <p>
-                Somos una empresa con más de 10 años de experiencia comercializando productos
-                promocionales importados y nacionales. Nos especializamos en hacer realidad
-                cualquier idea y concepto.
+                Somos una empresa con más de 10 años de experiencia
+                comercializando productos promocionales importados y nacionales.
+                Nos especializamos en hacer realidad cualquier idea y concepto.
               </p>
-              <button type="submit" className="button">More info</button>
+              <button type="submit" className="button">
+                More info
+              </button>
             </div>
           </article>
         </div>
@@ -88,18 +93,24 @@ export default function LandingView() {
           <h2>NUEVO</h2>
           <article id="articleTwo" className="articleTwo">
             <h3>Canguro Muttler</h3>
-            <p>Canguro para llevar tus artículos personales cuando estés de viaje o entrenando.</p>
+            <p>
+              Canguro para llevar tus artículos personales cuando estés de viaje
+              o entrenando.
+            </p>
           </article>
           <article id="articleThree" className="articleThree">
             <h3>Cooler San Salvatore</h3>
             <p>
-              Nevera portátil con diseño moderno, cuenta el espacio necesario para llevar las
-              bebidas y alimentos.
+              Nevera portátil con diseño moderno, cuenta el espacio necesario
+              para llevar las bebidas y alimentos.
             </p>
           </article>
           <article id="articleFour" className="articleFour">
             <h3>Maleta Travel Mont Fort</h3>
-            <p>Maleta con diseño elegante y moderna, cuenta con todo el espacio necesario.</p>
+            <p>
+              Maleta con diseño elegante y moderna, cuenta con todo el espacio
+              necesario.
+            </p>
           </article>
         </div>
       </section>
@@ -109,17 +120,23 @@ export default function LandingView() {
           <div id="divFive" className="divFive">
             <span>01</span>
             <h4>Canguro Muttler</h4>
-            <p>Canguro para llevar tus artículos personales cuando estés de viaje o entrenando.</p>
+            <p>
+              Canguro para llevar tus artículos personales cuando estés de viaje
+              o entrenando.
+            </p>
           </div>
         </article>
         <article id="articleSix" className="services">
-          <img src="src/assets/images/cooler-san-salvatore-300x300.png" alt="" />
+          <img
+            src="src/assets/images/cooler-san-salvatore-300x300.png"
+            alt=""
+          />
           <div id="divSix" className="divFive">
             <span>02</span>
             <h4>Cooler San Salvatore</h4>
             <p>
-              Nevera portátil con diseño moderno, cuenta el espacio necesario para llevar las
-              bebidas y alimentos.
+              Nevera portátil con diseño moderno, cuenta el espacio necesario
+              para llevar las bebidas y alimentos.
             </p>
           </div>
         </article>
@@ -128,7 +145,10 @@ export default function LandingView() {
           <div id="divSeven" className="divFive">
             <span>03</span>
             <h4>Maleta Travel</h4>
-            <p>Maleta con diseño elegante y moderna ideal para viajes cortos o ir al gimnasio.</p>
+            <p>
+              Maleta con diseño elegante y moderna ideal para viajes cortos o ir
+              al gimnasio.
+            </p>
           </div>
         </article>
       </div>

@@ -1,5 +1,5 @@
-import { Modal, Form, Input, InputNumber, message } from "antd";
-import { addProduct } from "../../services/products.service";
+import { Modal, Form, Input, InputNumber, message } from 'antd';
+import { addProduct } from '../../services/products.service';
 
 export default function AddProductModal({ onClose, isOpen }) {
   const [form] = Form.useForm();
@@ -10,14 +10,14 @@ export default function AddProductModal({ onClose, isOpen }) {
       .then(async (values) => {
         try {
           messageApi.open({
-            type: "loading",
-            content: "Guardando producto...",
+            type: 'loading',
+            content: 'Guardando producto...',
             duration: 0,
           });
           await addProduct(values);
           messageApi.destroy();
           messageApi.open({
-            type: "success",
+            type: 'success',
             content: `${values.name} guardado correctamente`,
           });
           onClose(); // Cerrar el modal después de guardar
@@ -25,18 +25,17 @@ export default function AddProductModal({ onClose, isOpen }) {
         } catch (error) {
           messageApi.destroy();
           messageApi.open({
-            type: "error",
+            type: 'error',
             content: error.message,
           });
         }
-   
       })
       .catch((errorInfo) => {
-        console.error("Error al guardar el producto:", errorInfo);
+        console.error('Error al guardar el producto:', errorInfo);
         messageApi.destroy();
         messageApi.open({
-          type: "error",
-          content: "Algo salió mal, por favor intente de nuevo",
+          type: 'error',
+          content: 'Algo salió mal, por favor intente de nuevo',
         });
       });
   };
@@ -58,7 +57,7 @@ export default function AddProductModal({ onClose, isOpen }) {
           rules={[
             {
               required: true,
-              message: "Por favor ingrese el nombre",
+              message: 'Por favor ingrese el nombre',
             },
           ]}
         >
@@ -70,16 +69,16 @@ export default function AddProductModal({ onClose, isOpen }) {
           rules={[
             {
               required: true,
-              message: "Por favor ingrese el precio",
+              message: 'Por favor ingrese el precio',
             },
           ]}
         >
           <InputNumber
             controls={false}
             formatter={(value) =>
-              `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+              `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
             }
-            parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
+            parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
           />
         </Form.Item>
         <Form.Item
@@ -88,7 +87,7 @@ export default function AddProductModal({ onClose, isOpen }) {
           rules={[
             {
               required: true,
-              message: "Por favor ingrese la descripción",
+              message: 'Por favor ingrese la descripción',
             },
           ]}
         >
@@ -100,7 +99,7 @@ export default function AddProductModal({ onClose, isOpen }) {
           rules={[
             {
               required: true,
-              message: "Por favor ingrese la categoría",
+              message: 'Por favor ingrese la categoría',
             },
           ]}
         >

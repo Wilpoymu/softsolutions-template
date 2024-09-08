@@ -1,6 +1,6 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 
-import { useMemo, useState, useEffect } from "react";
+import { useMemo, useState, useEffect } from 'react';
 import {
   Form,
   InputNumber,
@@ -12,11 +12,11 @@ import {
   Row,
   Col,
   Divider,
-} from "antd";
-import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
-import { getProducts } from "../services/products.service";
-import { getClients } from "../services/clients.service";
-import { addVenta } from "../services/ventas.service";
+} from 'antd';
+import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import { getProducts } from '../services/products.service';
+import { getClients } from '../services/clients.service';
+import { addVenta } from '../services/ventas.service';
 
 const { Option } = Select;
 
@@ -32,7 +32,7 @@ export default function VentasForm({ onClose }) {
   const [total, setTotal] = useState(0);
 
   const calculateTotal = () => {
-    const productos = form.getFieldValue("productos") || [];
+    const productos = form.getFieldValue('productos') || [];
     const newTotal = productos?.reduce((acc, producto) => {
       const productDetails = products.find((p) => p.id === producto?.producto);
       const price = productDetails ? productDetails.price : 0;
@@ -51,32 +51,32 @@ export default function VentasForm({ onClose }) {
       .then(async (values) => {
         try {
           messageApi.open({
-            type: "loading",
-            content: "Guardando venta...",
+            type: 'loading',
+            content: 'Guardando venta...',
             duration: 0,
           });
           await addVenta(values);
           messageApi.destroy();
           messageApi.open({
-            type: "success",
-            content: "Nueva venta guardada correctamente",
+            type: 'success',
+            content: 'Nueva venta guardada correctamente',
           });
           onClose();
           form.resetFields();
         } catch (error) {
           messageApi.destroy();
           messageApi.open({
-            type: "error",
+            type: 'error',
             content: error.message,
           });
         }
       })
       .catch((errorInfo) => {
-        console.error("Error al guardar la venta:", errorInfo);
+        console.error('Error al guardar la venta:', errorInfo);
         messageApi.destroy();
         messageApi.open({
-          type: "error",
-          content: "Algo salió mal, por favor intente de nuevo",
+          type: 'error',
+          content: 'Algo salió mal, por favor intente de nuevo',
         });
       });
   };
@@ -86,11 +86,11 @@ export default function VentasForm({ onClose }) {
     if (selectedProduct) {
       form.setFieldsValue({
         productos: form
-          .getFieldValue("productos")
+          .getFieldValue('productos')
           .map((item, index) =>
             index === field.name
               ? { ...item, precioUnitario: selectedProduct.price }
-              : item
+              : item,
           ),
       });
       calculateTotal();
@@ -98,13 +98,13 @@ export default function VentasForm({ onClose }) {
   };
 
   const calculateProductTotal = (index) => {
-    const productos = form.getFieldValue("productos");
+    const productos = form.getFieldValue('productos');
     const cantidad = productos[index].cantidad || 0;
     const precioUnitario = productos[index].precioUnitario || 0;
     const totalProducto = cantidad * precioUnitario;
 
     const updatedProductos = productos.map((item, i) =>
-      i === index ? { ...item, totalProducto } : item
+      i === index ? { ...item, totalProducto } : item,
     );
 
     form.setFieldsValue({ productos: updatedProductos });
@@ -120,9 +120,9 @@ export default function VentasForm({ onClose }) {
         initialValues={{ pagado: false, entregado: false }}
         onValuesChange={calculateTotal}
         style={{
-          padding: "20px",
-          backgroundColor: "#fff",
-          borderRadius: "8px",
+          padding: '20px',
+          backgroundColor: '#fff',
+          borderRadius: '8px',
         }}
       >
         <Divider orientation="left">Información del Cliente</Divider>
@@ -134,7 +134,7 @@ export default function VentasForm({ onClose }) {
               rules={[
                 {
                   required: true,
-                  message: "Por favor ingrese el cliente",
+                  message: 'Por favor ingrese el cliente',
                 },
               ]}
             >
@@ -162,11 +162,11 @@ export default function VentasForm({ onClose }) {
               rules={[
                 {
                   required: true,
-                  message: "Por favor ingrese la fecha de inicio",
+                  message: 'Por favor ingrese la fecha de inicio',
                 },
               ]}
             >
-              <DatePicker style={{ width: "100%" }} />
+              <DatePicker style={{ width: '100%' }} />
             </Form.Item>
           </Col>
         </Row>
@@ -179,12 +179,12 @@ export default function VentasForm({ onClose }) {
                 <Row gutter={16} key={field.key} align="middle">
                   <Col span={7}>
                     <Form.Item
-                      label={index === 0 ? "Producto" : ""}
-                      name={[field.name, "producto"]}
+                      label={index === 0 ? 'Producto' : ''}
+                      name={[field.name, 'producto']}
                       rules={[
                         {
                           required: true,
-                          message: "Por favor seleccione un producto",
+                          message: 'Por favor seleccione un producto',
                         },
                       ]}
                     >
@@ -205,12 +205,12 @@ export default function VentasForm({ onClose }) {
 
                   <Col span={5}>
                     <Form.Item
-                      label={index === 0 ? "Cantidad" : ""}
-                      name={[field.name, "cantidad"]}
+                      label={index === 0 ? 'Cantidad' : ''}
+                      name={[field.name, 'cantidad']}
                       rules={[
                         {
                           required: true,
-                          message: "Por favor ingrese la cantidad",
+                          message: 'Por favor ingrese la cantidad',
                         },
                       ]}
                     >
@@ -221,49 +221,49 @@ export default function VentasForm({ onClose }) {
                           calculateProductTotal(index);
                           calculateTotal();
                         }}
-                        style={{ width: "100%" }}
+                        style={{ width: '100%' }}
                       />
                     </Form.Item>
                   </Col>
 
                   <Col span={5}>
                     <Form.Item
-                      label={index === 0 ? "Precio Unitario" : ""}
-                      name={[field.name, "precioUnitario"]}
+                      label={index === 0 ? 'Precio Unitario' : ''}
+                      name={[field.name, 'precioUnitario']}
                     >
                       <InputNumber
                         formatter={(value) =>
-                          `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                          `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
                         }
-                        parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
+                        parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
                         value={form.getFieldValue([
-                          "productos",
+                          'productos',
                           index,
-                          "precioUnitario",
+                          'precioUnitario',
                         ])}
                         readOnly
-                        style={{ width: "100%" }}
+                        style={{ width: '100%' }}
                       />
                     </Form.Item>
                   </Col>
 
                   <Col span={5}>
                     <Form.Item
-                      label={index === 0 ? "Total" : ""}
-                      name={[field.name, "totalProducto"]}
+                      label={index === 0 ? 'Total' : ''}
+                      name={[field.name, 'totalProducto']}
                     >
                       <InputNumber
                         formatter={(value) =>
-                          `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                          `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
                         }
-                        parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
+                        parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
                         value={form.getFieldValue([
-                          "productos",
+                          'productos',
                           index,
-                          "totalProducto",
+                          'totalProducto',
                         ])}
                         readOnly
-                        style={{ width: "100%" }}
+                        style={{ width: '100%' }}
                       />
                     </Form.Item>
                   </Col>
@@ -271,7 +271,7 @@ export default function VentasForm({ onClose }) {
                   <Col span={2}>
                     {fields.length > 1 && (
                       <MinusCircleOutlined
-                        style={{ color: "red" }}
+                        style={{ color: 'red' }}
                         className="dynamic-delete-button"
                         onClick={() => remove(field.name)}
                       />
@@ -283,7 +283,7 @@ export default function VentasForm({ onClose }) {
                 <Button
                   type="dashed"
                   onClick={() => add()}
-                  style={{ width: "100%", marginTop: "16px" }}
+                  style={{ width: '100%', marginTop: '16px' }}
                   icon={<PlusOutlined />}
                 >
                   Agregar producto
@@ -293,23 +293,23 @@ export default function VentasForm({ onClose }) {
           )}
         </Form.List>
 
-        <Row gutter={16} style={{ marginTop: "16px" }}>
+        <Row gutter={16} style={{ marginTop: '16px' }}>
           <Col span={12}>
             <Form.Item label="Total" name="total">
               <InputNumber
                 readOnly
                 formatter={(value) =>
-                  `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                  `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
                 }
-                parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
+                parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
                 value={total}
-                style={{ width: "100%" }}
+                style={{ width: '100%' }}
               />
             </Form.Item>
           </Col>
           <Col span={12}>
             <Form.Item label="Fecha de Pago" name="fechaPago">
-              <DatePicker style={{ width: "100%" }} />
+              <DatePicker style={{ width: '100%' }} />
             </Form.Item>
           </Col>
         </Row>
@@ -333,13 +333,13 @@ export default function VentasForm({ onClose }) {
         </Row>
 
         <Form.Item>
-          <Button type="primary" onClick={handleOk} style={{ width: "100%" }}>
+          <Button type="primary" onClick={handleOk} style={{ width: '100%' }}>
             Guardar Venta
           </Button>
         </Form.Item>
 
         <Form.Item>
-          <Button onClick={onClose} style={{ width: "100%" }}>
+          <Button onClick={onClose} style={{ width: '100%' }}>
             Cancelar
           </Button>
         </Form.Item>

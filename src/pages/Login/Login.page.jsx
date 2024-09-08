@@ -1,14 +1,13 @@
-import { Button } from "antd";
-import { Link, useNavigate } from "react-router-dom";
-import "./styles.css";
+import { Button } from 'antd';
+import { Link, useNavigate } from 'react-router-dom';
+import './styles.css';
 
 function LoginPage() {
-
   const navigate = useNavigate();
 
   const handleLogin = () => {
-    navigate("/clientes");
-  }
+    navigate('/clientes');
+  };
 
   return (
     <div className="login-container">
@@ -72,7 +71,11 @@ function LoginPage() {
               </div>
 
               <div className="form-submit">
-                <Button onClick={handleLogin} type="submit" className="submit-button">
+                <Button
+                  onClick={handleLogin}
+                  type="submit"
+                  className="submit-button"
+                >
                   Sign in
                 </Button>
               </div>
