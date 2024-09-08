@@ -15,7 +15,7 @@ function LoginPage() {
       <div className="content">
         <div className="image-container">
           <img
-            src="src/assets/images/login-image.jpg"
+            src="https://www.panafargo.com/wp-content/uploads/2019/08/Distribuidoras-de-papeleria.jpg"
             alt="Login visual"
             className="login-image"
           />
