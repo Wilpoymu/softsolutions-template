@@ -1,5 +1,5 @@
-import PropTypes from "prop-types";
-import { useEffect, useState } from "react";
+import PropTypes from 'prop-types';
+import { useEffect, useState } from 'react';
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
@@ -7,51 +7,51 @@ import {
   UserOutlined,
   VideoCameraOutlined,
   LoginOutlined,
-} from "@ant-design/icons";
-import { Button, Layout, Menu, theme } from "antd";
-import { useNavigate, useLocation } from "react-router-dom";
+} from '@ant-design/icons';
+import { Button, Layout, Menu, theme } from 'antd';
+import { useNavigate, useLocation } from 'react-router-dom';
 const { Header, Sider, Content } = Layout;
 
 const navItems = [
   {
-    key: "/clientes",
+    key: '/clientes',
     icon: <UserOutlined />,
-    label: "Clientes",
+    label: 'Clientes',
   },
   {
-    key: "/compras",
+    key: '/compras',
     icon: <VideoCameraOutlined />,
-    label: "Compras",
+    label: 'Compras',
     children: [
       {
-        key: "/productos",
-        label: "Productos",
+        key: '/productos',
+        label: 'Productos',
       },
       {
-        key: "/proveedores",
-        label: "Proveedores",
+        key: '/proveedores',
+        label: 'Proveedores',
       },
     ],
   },
   {
-    key: "/ventas",
+    key: '/ventas',
     icon: <UploadOutlined />,
-    label: "Ventas",
+    label: 'Ventas',
     // Aquí no tiene submenú
   },
   {
-    key: "/login",
+    key: '/login',
     icon: <LoginOutlined />,
-    label: "Login",
+    label: 'Login',
     // Aquí no tiene submenú
   },
 ];
 
 const LayoutPage = ({ children }) => {
   const [collapsed, setCollapsed] = useState(false);
-  const [selectedTitle, setSelectedTitle] = useState("");
+  const [selectedTitle, setSelectedTitle] = useState('');
   const navigate = useNavigate();
-  const location = useLocation(); 
+  const location = useLocation();
 
   useEffect(() => {
     const findItem = (items, path) => {
@@ -67,7 +67,7 @@ const LayoutPage = ({ children }) => {
         }
       }
       return null;
-    }
+    };
     const item = findItem(navItems, location.pathname);
     if (item) {
       setSelectedTitle(item.label);
@@ -85,17 +85,19 @@ const LayoutPage = ({ children }) => {
   } = theme.useToken();
 
   return (
-    <Layout style={{ height: "100vh" }}>
+    <Layout style={{ height: '100vh' }}>
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <div className="demo-logo-vertical" />
         {!collapsed ? (
-          <h2 style={{ color: "white", textAlign: "center", padding: "15px" }}>SoftSolutions</h2>
+          <h2 style={{ color: 'white', textAlign: 'center', padding: '15px' }}>
+            SoftSolutions
+          </h2>
         ) : (
-          <div style={{ textAlign: "center", padding: "10px" }}>
-            <img 
-            src="https://grupomilsoluciones.com/wp-content/uploads/favicon.png" 
-            alt="Logo SoftSolutions"  
-            style={{ width: "40px", height: "40px" }}
+          <div style={{ textAlign: 'center', padding: '10px' }}>
+            <img
+              src="https://grupomilsoluciones.com/wp-content/uploads/favicon.png"
+              alt="Logo SoftSolutions"
+              style={{ width: '40px', height: '40px' }}
             />
           </div>
         )}
@@ -112,8 +114,8 @@ const LayoutPage = ({ children }) => {
           style={{
             padding: 0,
             background: colorBgContainer,
-            display: "flex",
-            alignItems: "center",
+            display: 'flex',
+            alignItems: 'center',
           }}
         >
           <Button
@@ -121,16 +123,16 @@ const LayoutPage = ({ children }) => {
             icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
             onClick={() => setCollapsed(!collapsed)}
             style={{
-              fontSize: "16px",
+              fontSize: '16px',
               width: 64,
               height: 64,
             }}
           />
-          <h1 style={{ color: "#e0e0e0", marginLeft: 16 }}>{selectedTitle}</h1>
+          <h1 style={{ color: '#e0e0e0', marginLeft: 16 }}>{selectedTitle}</h1>
         </Header>
         <Content
           style={{
-            margin: "24px 16px",
+            margin: '24px 16px',
             padding: 24,
             minHeight: 280,
             background: colorBgContainer,

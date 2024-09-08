@@ -1,8 +1,8 @@
-import Product from "../models/product.model";
+import Product from '../models/product.model';
 
 export function getProducts() {
-  return localStorage.getItem("products")
-    ? JSON.parse(localStorage.getItem("products"))
+  return localStorage.getItem('products')
+    ? JSON.parse(localStorage.getItem('products'))
     : [];
 }
 
@@ -18,7 +18,7 @@ export function addProduct(product) {
       // Guardar el nuevo cliente en localStorage
       const existingProducts = getProducts();
       existingProducts.push(newProduct);
-      localStorage.setItem("products", JSON.stringify(existingProducts));
+      localStorage.setItem('products', JSON.stringify(existingProducts));
       resolve(newProduct);
     }, 2000);
   });

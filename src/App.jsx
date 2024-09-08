@@ -1,10 +1,8 @@
-import "./App.css";
-import LayoutPage from "./components/Layout";
+import './App.css';
+import LayoutPage from './components/Layout';
 
 function App() {
-  return (
-    <LayoutPage />
-  );
+  return <LayoutPage />;
 }
 
 export default App;
