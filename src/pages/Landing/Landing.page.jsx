@@ -34,7 +34,7 @@ export default function LandingView() {
     <div className="container">
       <header id="header" className="header">
         <div id="logo" className="logo">
-          <img src="./assets/images/landing/logo (1).png" alt="logo" />
+          <img src="src/assets/images/logo (1).png" alt="logo" />
         </div>
         <nav id="navBar" className="navBar">
           <ul>
@@ -68,8 +68,8 @@ export default function LandingView() {
       <section id="showCase" className="showCase">
         <div id="divOne" className="divOne">
           <picture>
-            <source media="(min-width: 768px)" srcSet="./assets/images/landing/3.png" />
-            <img className="picture" src="./assets/images/landing/3.png" alt="" />
+            <source media="(min-width: 768px)" srcSet="src/assets/images/3.png" />
+            <img className="picture" src="src/assets/images/3.png" alt="" />
           </picture>
           <article id="articleOne" className="articleOne">
             <h1>Grupo Mil Soluciones S.A.S</h1>
@@ -105,7 +105,7 @@ export default function LandingView() {
       </section>
       <div id="divFour" className="divFour">
         <article id="articleFive" className="services">
-          <img src="./assets/images/landing/canguro-muttler.png" alt="" />
+          <img src="src/assets/images/canguro-muttler.png" alt="" />
           <div id="divFive" className="divFive">
             <span>01</span>
             <h4>Canguro Muttler</h4>
@@ -113,7 +113,7 @@ export default function LandingView() {
           </div>
         </article>
         <article id="articleSix" className="services">
-          <img src="./assets/images/landing/cooler-san-salvatore-300x300.png" alt="" />
+          <img src="src/assets/images/cooler-san-salvatore-300x300.png" alt="" />
           <div id="divSix" className="divFive">
             <span>02</span>
             <h4>Cooler San Salvatore</h4>
@@ -124,7 +124,7 @@ export default function LandingView() {
           </div>
         </article>
         <article id="articleSeven" className="services">
-          <img src="./assets/images/landing/maleta-travel-mont-fort.png" alt="" />
+          <img src="src/assets/images/maleta-travel-mont-fort.png" alt="" />
           <div id="divSeven" className="divFive">
             <span>03</span>
             <h4>Maleta Travel</h4>
