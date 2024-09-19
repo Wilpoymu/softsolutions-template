@@ -7,6 +7,7 @@ import {
   UserOutlined,
   VideoCameraOutlined,
   LoginOutlined,
+  UsergroupAddOutlined,
 } from '@ant-design/icons';
 import { Button, Layout, Menu, theme } from 'antd';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -29,6 +30,7 @@ const navItems = [
       },
       {
         key: '/proveedores',
+        icon: <UsergroupAddOutlined />,
         label: 'Proveedores',
       },
     ],
