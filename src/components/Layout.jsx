@@ -15,9 +15,9 @@ const { Header, Sider, Content } = Layout;
 
 const navItems = [
   {
-    key: '/clientes',
+    key: '/dashboard',
     icon: <UserOutlined />,
-    label: 'Clientes',
+    label: 'Dashboard',
   },
   {
     key: '/compras',
@@ -36,15 +36,69 @@ const navItems = [
     ],
   },
   {
+    key: '/servicios',
+    label: 'Servicios',
+    children: [
+      {
+        key: '/servicios',
+        label: 'Servicios',
+      },
+      {
+        key: '/categorias',
+        label: 'Categorías',
+      },
+      {
+        key: '/agenda',
+        label: 'Agenda',
+      },
+    ],
+  },
+  {
     key: '/ventas',
     icon: <UploadOutlined />,
     label: 'Ventas',
+    children: [
+      {
+        key: '/ventas',
+        label: 'Ventas',
+      },
+      {
+        key: '/cotizaciones',
+        label: 'Cotizaciones',
+      },
+      {
+        key: '/pedidos',
+        label: 'Pedidos',
+      },
+      {
+        key: '/clientes',
+        icon: <UserOutlined />,
+        label: 'Clientes',
+      },
+    ],
     // Aquí no tiene submenú
+  },
+
+  {
+    key: '/configuracion',
+    label: 'Configuración',
+    // Aquí no tiene submenú
+  },
+  {
+    key: '/usuarios',
+    icon: <UsergroupAddOutlined />,
+    label: 'Usuarios',
   },
   {
     key: '/login',
     icon: <LoginOutlined />,
     label: 'Login',
+    // Aquí no tiene submenú
+  },
+  {
+    key: '/register',
+    icon: <UsergroupAddOutlined />,
+    label: 'Register',
     // Aquí no tiene submenú
   },
 ];
