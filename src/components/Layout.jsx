@@ -8,16 +8,28 @@ import {
   VideoCameraOutlined,
   LoginOutlined,
   UsergroupAddOutlined,
+  ProductOutlined,
+  InboxOutlined,
+  SnippetsOutlined,
+  BarChartOutlined,
+  BookOutlined,
+  CalendarOutlined,
+  SelectOutlined,
+  SettingOutlined,
+  TeamOutlined,
+  SolutionOutlined,
+  HolderOutlined
 } from '@ant-design/icons';
 import { Button, Layout, Menu, theme } from 'antd';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { icons } from 'antd/es/image/PreviewGroup';
 const { Header, Sider, Content } = Layout;
 
 const navItems = [
   {
-    key: '/clientes',
-    icon: <UserOutlined />,
-    label: 'Clientes',
+    key: '/dashboard',
+    icon: <BarChartOutlined />,
+    label: 'Dashboard',
   },
   {
     key: '/compras',
@@ -26,12 +38,30 @@ const navItems = [
     children: [
       {
         key: '/productos',
+        icon: <ProductOutlined />,
         label: 'Productos',
       },
       {
         key: '/proveedores',
-        icon: <UsergroupAddOutlined />,
+        icon: <TeamOutlined />,
         label: 'Proveedores',
+      },
+    ],
+  },
+  {
+    key: '/servicios',
+    icon: <SelectOutlined />,
+    label: 'Servicios',
+    children: [
+      {
+        key: '/categoria',
+        icon: <BookOutlined />,
+        label: 'Categoria',
+      },
+      {
+        key: '/agenda',
+        icon: <CalendarOutlined />,
+        label: 'Agenda',
       },
     ],
   },
@@ -39,13 +69,61 @@ const navItems = [
     key: '/ventas',
     icon: <UploadOutlined />,
     label: 'Ventas',
-    // Aquí no tiene submenú
+    children: [
+      {
+        key: '/ventas',
+        icon: <UploadOutlined />,
+        label: 'Ventas',
+      },
+      {
+        key: '/cotizaciones',
+        icon: <InboxOutlined />,
+        label: 'Cotizaciones',
+      },
+      {
+        key: '/pedidos',
+        icon: <SnippetsOutlined />,
+        label: 'Pedidos',
+      },
+      {
+        key: '/clientes',
+        icon: <TeamOutlined />,
+        label: 'Clientes',
+      }
+
+    ]
+  },
+  {
+    key: '/configuracion',
+    icon: <SettingOutlined />,
+    label: 'Configuracion',
+    children: [
+      {
+        key: '/roles',
+        icon: <TeamOutlined />,
+        label: 'Roles',
+      },
+      {
+        key: '/permisos',
+        icon: <SolutionOutlined />,
+        label: 'Permisos',
+      },
+      {
+        key: '/privilegios',
+        icon: <HolderOutlined />,
+        label: 'Privilegios',
+      }
+    ]
+  },
+  {
+    key: '/usuarios',
+    icon: <UsergroupAddOutlined />,
+    label: 'Usuarios',
   },
   {
     key: '/login',
     icon: <LoginOutlined />,
     label: 'Login',
-    // Aquí no tiene submenú
   },
 ];
 
