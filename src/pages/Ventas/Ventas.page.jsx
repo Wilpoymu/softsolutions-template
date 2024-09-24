@@ -17,6 +17,7 @@ const VentasPage = () => {
             justifyContent: 'space-between',
           }}
         >
+          <h2>Lista de Ventas</h2>
           <Button
             type="primary"
             onClick={() => setModalOpen(true)}

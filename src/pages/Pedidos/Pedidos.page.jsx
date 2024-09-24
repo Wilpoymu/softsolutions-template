@@ -17,6 +17,7 @@ const PedidosPage = () => {
             justifyContent: 'space-between',
           }}
         >
+          <h2>Lista de Pedidos</h2>
           <Button
             type="primary"
             onClick={() => setModalOpen(true)}
