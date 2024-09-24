@@ -121,15 +121,14 @@ const navItems = [
     label: 'Usuarios',
   },
   {
-    key: '/login',
-    icon: <LoginOutlined />,
-    label: 'Login',
-  },
-  {
     key: '/register',
     icon: <UsergroupAddOutlined />,
     label: 'Register',
-    // Aquí no tiene submenú
+  },
+  {
+    key: '/login',
+    icon: <LoginOutlined />,
+    label: 'Login',
   },
 ];
 
