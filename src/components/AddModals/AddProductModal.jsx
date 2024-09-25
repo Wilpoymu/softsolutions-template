@@ -1,9 +1,20 @@
 import { Modal, Form, Input, InputNumber, message } from 'antd';
-import { addProduct } from '../../services/products.service';
+import { useEffect } from 'react';
+import { addProduct, editProduct } from '../../services/products.service';
 
-export default function AddProductModal({ onClose, isOpen }) {
+export default function AddProductModal({ onClose, isOpen, productToEdit }) {
   const [form] = Form.useForm();
   const [messageApi, contextHolder] = message.useMessage();
+
+  // Establecer valores del formulario si se está editando un producto
+  useEffect(() => {
+    if (productToEdit) {
+      form.setFieldsValue(productToEdit);
+    } else {
+      form.resetFields();
+    }
+  }, [productToEdit, form]);
+
   const handleOk = () => {
     form
       .validateFields()
@@ -11,16 +22,29 @@ export default function AddProductModal({ onClose, isOpen }) {
         try {
           messageApi.open({
             type: 'loading',
-            content: 'Guardando producto...',
+            content: productToEdit ? 'Actualizando producto...' : 'Guardando producto...',
             duration: 0,
           });
-          await addProduct(values);
-          messageApi.destroy();
-          messageApi.open({
-            type: 'success',
-            content: `${values.name} guardado correctamente`,
-          });
-          onClose(); // Cerrar el modal después de guardar
+
+          if (productToEdit) {
+            // Editar producto existente
+            await editProduct({ ...productToEdit, ...values });
+            messageApi.destroy();
+            messageApi.open({
+              type: 'success',
+              content: `${values.name} actualizado correctamente`,
+            });
+          } else {
+            // Agregar nuevo producto
+            await addProduct(values);
+            messageApi.destroy();
+            messageApi.open({
+              type: 'success',
+              content: `${values.name} guardado correctamente`,
+            });
+          }
+
+          onClose(); // Cerrar el modal después de guardar o editar
           form.resetFields(); // Resetear el formulario
         } catch (error) {
           messageApi.destroy();
@@ -42,7 +66,7 @@ export default function AddProductModal({ onClose, isOpen }) {
 
   return (
     <Modal
-      title="Nuevo Producto"
+      title={productToEdit ? 'Editar Producto' : 'Nuevo Producto'}
       onCancel={onClose}
       onClose={onClose}
       onOk={handleOk}

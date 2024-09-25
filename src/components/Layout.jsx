@@ -4,7 +4,6 @@ import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   UploadOutlined,
-  UserOutlined,
   VideoCameraOutlined,
   LoginOutlined,
   UsergroupAddOutlined,
@@ -22,7 +21,6 @@ import {
 } from '@ant-design/icons';
 import { Button, Layout, Menu, theme } from 'antd';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { icons } from 'antd/es/image/PreviewGroup';
 const { Header, Sider, Content } = Layout;
 
 const navItems = [
