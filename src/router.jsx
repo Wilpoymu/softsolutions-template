@@ -8,11 +8,20 @@ import ProductsPage from './pages/Productos/Products.page';
 import ProveedoresPage from './pages/Proveedores/Proveedores.page';
 import PedidosPage from './pages/Pedidos/Pedidos.page';
 import CotizacionesPage from './pages/Cotizaciones/Cotizaciones.page'
+import Dashboard from './pages/Dashboard/Dashboard.page';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <LandingView />,
+  },
+  {
+    path: '/dashboard',
+    element: (
+      <LayoutPage>
+        <Dashboard />
+      </LayoutPage>
+    )
   },
   {
     path: '/clientes',
