@@ -27,11 +27,16 @@ const router = createBrowserRouter([
   },
   {
     path: '/dashboard',
-    element: (
-      <LayoutPage>
-        <Dashboard />
-      </LayoutPage>
-    )
+    children: [
+      {
+        path: '',
+        element: (
+          <LayoutPage>
+            <Dashboard />
+          </LayoutPage>
+        ),
+      },
+    ],
   },
   {
     path: '/compras',
@@ -197,7 +202,7 @@ const router = createBrowserRouter([
   {
     path: '*',
     element: <h1>404 Not Found</h1>,
-  }
+  },
 ]);
 
 export default router;
