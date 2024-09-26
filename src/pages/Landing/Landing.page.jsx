@@ -56,7 +56,7 @@ export default function LandingView() {
           </ul>
           <ul>
             <li>
-              <a href="/">Registrarse</a>
+              <Link to="/register">Registrarse</Link>
             </li>
             <li>
               <Link to="/login">Iniciar sesión</Link>
