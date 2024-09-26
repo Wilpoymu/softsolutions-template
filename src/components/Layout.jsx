@@ -130,7 +130,7 @@ const navItems = [
   {
     key: '/register',
     icon: <UsergroupAddOutlined />,
-    label: 'Register',
+    label: 'Registro',
   },
   {
     key: '/login',

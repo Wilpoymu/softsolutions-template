@@ -159,11 +159,16 @@ const router = createBrowserRouter([
   },
   {
     path: '/usuarios',
-    element: (
-      <LayoutPage>
-        <UsuariosPage />
-      </LayoutPage>
-    ),
+    children: [
+      {
+        path: '',
+        element: (
+          <LayoutPage>
+            <UsuariosPage />
+          </LayoutPage>
+        ),
+      },
+    ],
   },
   {
     path: '/register',
@@ -188,6 +193,10 @@ const router = createBrowserRouter([
         <RecoverPasswordPage />
       </LayoutPage>
     ),
+  },
+  {
+    path: '*',
+    element: <h1>404 Not Found</h1>,
   }
 ]);
 
