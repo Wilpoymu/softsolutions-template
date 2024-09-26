@@ -9,7 +9,7 @@ import PedidosPage from './pages/Pedidos/Pedidos.page';
 import CotizacionesPage from './pages/Cotizaciones/Cotizaciones.page';
 import Dashboard from './pages/Dashboard/Dashboard.page';
 import ComprasPage from './pages/Compras/Compras.page';
-import CategoriaPage from './pages/Servicios/Categoria.page';
+import CategoriasPage from './pages/Servicios/Categorias.page';
 import AgendaPage from './pages/Servicios/Agenda.page';
 import RolesPage from './pages/Configuracion/Roles.page';
 import PermisosPage from './pages/Configuracion/Permisos.page';
@@ -77,7 +77,7 @@ const router = createBrowserRouter([
         path: 'categoria',
         element: (
           <LayoutPage>
-            <CategoriaPage />
+            <CategoriasPage />
           </LayoutPage>
         ),
       },
