@@ -1,7 +1,17 @@
 import Parent from './parent.model';
 
 class User extends Parent {
-  constructor({ id, name, organization, email, phone, password, status, city_id, role_id }) {
+  constructor({
+    id,
+    name,
+    organization,
+    email,
+    phone,
+    password,
+    status,
+    city_id,
+    role_id,
+  }) {
     super();
     this.id = id;
     this.name = name;

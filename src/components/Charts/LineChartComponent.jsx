@@ -1,4 +1,13 @@
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from 'recharts';
 
 const data = [
   { name: 'Enero', ventas: 4000, compras: 2400 },
@@ -13,7 +22,10 @@ const data = [
 export default function LineChartComponent() {
   return (
     <ResponsiveContainer width="100%" height={300}>
-      <LineChart data={data} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+      <LineChart
+        data={data}
+        margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+      >
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="name" />
         <YAxis />

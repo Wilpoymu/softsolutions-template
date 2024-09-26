@@ -22,7 +22,10 @@ const CategoriasPage = () => {
         </Button>
       </div>
       <CategoriesTable dataSource={dataSource} />
-      <AddCategoryModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
+      <AddCategoryModal
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+      />
     </div>
   );
 };

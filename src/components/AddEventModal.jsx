@@ -1,5 +1,5 @@
 import { Modal, Form, Input, DatePicker, message } from 'antd';
-import { crearEvento } from '../services/agenda.service'; 
+import { crearEvento } from '../services/agenda.service';
 
 export default function AddEventModal({ onClose, isOpen }) {
   const [form] = Form.useForm();

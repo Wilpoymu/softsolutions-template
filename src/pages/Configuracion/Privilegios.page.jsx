@@ -22,7 +22,10 @@ const PrivilegiosPage = () => {
         </Button>
       </div>
       <PrivilegesTable dataSource={dataSource} />
-      <AddPrivilegeModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
+      <AddPrivilegeModal
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+      />
     </div>
   );
 };

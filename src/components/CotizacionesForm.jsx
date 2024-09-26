@@ -17,7 +17,6 @@ import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { addCotizacion, getCotizaciones } from '../services/cotizacion.service';
 import { getClients } from '../services/clients.service';
 
-
 const { Option } = Select;
 
 export default function CotizacionesForm({ onClose }) {
@@ -34,7 +33,9 @@ export default function CotizacionesForm({ onClose }) {
   const calculateTotal = () => {
     const cotizaciones = form.getFieldValue('cotizaciones') || [];
     const newTotal = cotizaciones?.reduce((acc, cotizacion) => {
-      const cotizacionDetails = cotizaciones.find((p) => p.id === cotizacion?.cotizacion);
+      const cotizacionDetails = cotizaciones.find(
+        (p) => p.id === cotizacion?.cotizacion,
+      );
       const price = cotizacionDetails ? cotizacionDetails.price : 0;
       return acc + cotizacion?.cantidad * price;
     }, 0);
@@ -192,7 +193,9 @@ export default function CotizacionesForm({ onClose }) {
                         showSearch
                         placeholder="Seleccione un producto"
                         optionFilterProp="children"
-                        onChange={(value) => handleCotizacionChange(value, field)}
+                        onChange={(value) =>
+                          handleCotizacionChange(value, field)
+                        }
                       >
                         {products?.map((product) => (
                           <Option key={product.id} value={product.id}>

@@ -17,7 +17,7 @@ import {
   SettingOutlined,
   TeamOutlined,
   SolutionOutlined,
-  HolderOutlined
+  HolderOutlined,
 } from '@ant-design/icons';
 import { Button, Layout, Menu, theme } from 'antd';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -97,8 +97,8 @@ const navItems = [
         key: '/ventas/clientes',
         icon: <TeamOutlined />,
         label: 'Clientes',
-      }
-    ]
+      },
+    ],
   },
   {
     key: '/configuracion',
@@ -119,8 +119,8 @@ const navItems = [
         key: '/configuracion/privilegios',
         icon: <HolderOutlined />,
         label: 'Privilegios',
-      }
-    ]
+      },
+    ],
   },
   {
     key: '/usuarios',

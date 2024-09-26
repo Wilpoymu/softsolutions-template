@@ -89,10 +89,7 @@ export default function AddProveedorModal({ onClose, isOpen }) {
             },
           ]}
         >
-          <InputNumber
-            controls={false}
-            style={{ width: '100%'}}
-          />
+          <InputNumber controls={false} style={{ width: '100%' }} />
         </Form.Item>
         <Form.Item
           name="address"
