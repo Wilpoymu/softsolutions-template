@@ -18,6 +18,7 @@ import UsuariosPage from './pages/Usuarios/Usuarios.page';
 import RegisterPage from './pages/Register/Register.page';
 import ProductosPage from './pages/Productos/Productos.page';
 import ServiciosPage from './pages/Servicios/Servicios.page';
+import RecoverPasswordPage from './pages/RecoverPassword/RecoverPassword.page';
 
 const router = createBrowserRouter([
   {
@@ -180,6 +181,14 @@ const router = createBrowserRouter([
       </LayoutPage>
     ),
   },
+  {
+    path: 'forgot-password',
+    element: (
+      <LayoutPage>
+        <RecoverPasswordPage />
+      </LayoutPage>
+    ),
+  }
 ]);
 
 export default router;

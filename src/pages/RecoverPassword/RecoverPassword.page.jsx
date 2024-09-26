@@ -2,11 +2,12 @@ import { Button } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import './styles.css';
 
-function LoginPage() {
+function RecoverPasswordPage() {
   const navigate = useNavigate();
 
-  const handleLogin = () => {
-    navigate('/dashboard');
+  const handleRecoverPassword = () => {
+    // Aquí puedes añadir la lógica para manejar la recuperación de contraseña
+    navigate('/login');
   };
 
   return (
@@ -15,7 +16,7 @@ function LoginPage() {
         <div className="image-container">
           <img
             src="/src/assets/images/login-image.jpg"
-            alt="Login visual"
+            alt="Recover Password visual"
             className="login-image"
           />
         </div>
@@ -23,13 +24,13 @@ function LoginPage() {
         <div className="form-container">
           <div className="form-content">
             <div className="form-header">
-              <h2 className="form-title">Sign in to your account</h2>
+              <h2 className="form-title">Recupera tu contraseña</h2>
             </div>
             <form className="login-form">
               <div className="form-fields">
                 <div className="form-field">
                   <label htmlFor="email" className="form-label">
-                    Email address
+                    Email
                   </label>
                   <input
                     id="email"
@@ -41,42 +42,23 @@ function LoginPage() {
                     placeholder="Email address"
                   />
                 </div>
-                <div className="form-field">
-                  <label htmlFor="password" className="form-label">
-                    Password
-                  </label>
-                  <input
-                    id="password"
-                    name="password"
-                    type="password"
-                    autoComplete="current-password"
-                    required
-                    className="form-input"
-                    placeholder="Password"
-                  />
-                </div>
               </div>
 
               <div className="form-links">
                 <div className="form-link">
-                  <Link to="/register" className="link-text">
-                    Register
-                  </Link>
-                </div>
-                <div className="form-link">
-                  <Link to="/forgot-password" className="link-text">
-                    Forgot your password?
+                  <Link to="/login" className="link-text">
+                    ¿Recordaste tu contraseña? Inicia sesión
                   </Link>
                 </div>
               </div>
 
               <div className="form-submit">
                 <Button
-                  onClick={handleLogin}
+                  onClick={handleRecoverPassword}
                   type="submit"
                   className="submit-button"
                 >
-                  Sign in
+                  Recuperar Contraseña
                 </Button>
               </div>
             </form>
@@ -87,4 +69,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+export default RecoverPasswordPage;
