@@ -1,13 +1,12 @@
 import moment from 'moment';
 import { Tag } from 'antd';
-import { getClients } from '../services/clients.service';
+import { getProveedores } from '../services/proveedores.service';
 import Parent from './parent.model';
 
-export class Cotizacion extends Parent {
+export class Compra extends Parent {
   constructor({
-    cliente,
+    proveedor,
     productos,
-    servicios,
     total,
     fechaInicio,
     fechaPago,
@@ -15,9 +14,8 @@ export class Cotizacion extends Parent {
     entregado,
   }) {
     super();
-    this.cliente = cliente;
+    this.proveedor = proveedor;
     this.productos = productos;
-    this.servicio = servicios;
     this.total = total;
     this.fechaInicio = fechaInicio;
     this.fechaPago = fechaPago;
@@ -26,23 +24,20 @@ export class Cotizacion extends Parent {
   }
 
   static get columns() {
-    const clientes = getClients();
+    const proveedores = getProveedores();
     return [
       {
-        title: 'Cliente',
-        dataIndex: 'cliente', // Asumiendo que en tu data la clave es clienteId
-        key: 'cliente',
-        render: (clienteId) => {
-          console.log(clienteId);
-          console.log(clientes);
-          const cliente = clientes.find((c) => c.id === clienteId);
-          return cliente ? cliente.name : 'Desconocido';
+        title: 'Proveedor',
+        dataIndex: 'proveedor',
+        key: 'proveedor',
+        render: (proveedorId) => {
+          const proveedor = proveedores.find((p) => p.id === proveedorId);
+          if (!proveedor) {
+            console.error(`Proveedor con id ${proveedorId} no encontrado`);
+            return 'Desconocido';
+          }
+          return proveedor.name;
         },
-      },
-      {
-        title: 'Productos',
-        dataIndex: 'productos',
-        key: 'productos',
       },
       {
         title: 'Total',
@@ -86,8 +81,8 @@ export class Cotizacion extends Parent {
   }
 
   validate() {
-    if (!this.cliente) {
-      throw new Error('El cliente es requerido');
+    if (!this.proveedor) {
+      throw new Error('El proveedor es requerido');
     }
     if (!this.productos) {
       throw new Error('Los productos son requeridos');

@@ -19,7 +19,10 @@ export function addCotizacion(cotizacion) {
       }
       const existingCotizaciones = getCotizaciones();
       existingCotizaciones.push(newCotizacion);
-      localStorage.setItem('cotizaciones', JSON.stringify(existingCotizaciones));
+      localStorage.setItem(
+        'cotizaciones',
+        JSON.stringify(existingCotizaciones),
+      );
       resolve(newCotizacion);
     }, 2000);
   });

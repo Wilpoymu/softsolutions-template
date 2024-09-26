@@ -17,7 +17,7 @@ import {
   SettingOutlined,
   TeamOutlined,
   SolutionOutlined,
-  HolderOutlined
+  HolderOutlined,
 } from '@ant-design/icons';
 import { Button, Layout, Menu, theme } from 'antd';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -35,12 +35,17 @@ const navItems = [
     label: 'Compras',
     children: [
       {
-        key: '/productos',
+        key: '/compras',
+        icon: <VideoCameraOutlined />,
+        label: 'Compras',
+      },
+      {
+        key: '/compras/productos',
         icon: <ProductOutlined />,
         label: 'Productos',
       },
       {
-        key: '/proveedores',
+        key: '/compras/proveedores',
         icon: <TeamOutlined />,
         label: 'Proveedores',
       },
@@ -52,12 +57,17 @@ const navItems = [
     label: 'Servicios',
     children: [
       {
-        key: '/categoria',
+        key: '/servicios',
+        icon: <SelectOutlined />,
+        label: 'Servicios',
+      },
+      {
+        key: '/servicios/categoria',
         icon: <BookOutlined />,
         label: 'Categoria',
       },
       {
-        key: '/agenda',
+        key: '/servicios/agenda',
         icon: <CalendarOutlined />,
         label: 'Agenda',
       },
@@ -74,22 +84,21 @@ const navItems = [
         label: 'Ventas',
       },
       {
-        key: '/cotizaciones',
+        key: '/ventas/cotizaciones',
         icon: <InboxOutlined />,
         label: 'Cotizaciones',
       },
       {
-        key: '/pedidos',
+        key: '/ventas/pedidos',
         icon: <SnippetsOutlined />,
         label: 'Pedidos',
       },
       {
-        key: '/clientes',
+        key: '/ventas/clientes',
         icon: <TeamOutlined />,
         label: 'Clientes',
-      }
-
-    ]
+      },
+    ],
   },
   {
     key: '/configuracion',
@@ -97,21 +106,21 @@ const navItems = [
     label: 'Configuracion',
     children: [
       {
-        key: '/roles',
+        key: '/configuracion/roles',
         icon: <TeamOutlined />,
         label: 'Roles',
       },
       {
-        key: '/permisos',
+        key: '/configuracion/permisos',
         icon: <SolutionOutlined />,
         label: 'Permisos',
       },
       {
-        key: '/privilegios',
+        key: '/configuracion/privilegios',
         icon: <HolderOutlined />,
         label: 'Privilegios',
-      }
-    ]
+      },
+    ],
   },
   {
     key: '/usuarios',
@@ -121,7 +130,7 @@ const navItems = [
   {
     key: '/register',
     icon: <UsergroupAddOutlined />,
-    label: 'Register',
+    label: 'Registro',
   },
   {
     key: '/login',

@@ -2,10 +2,11 @@ import { Button } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import './styles.css';
 
-function LoginPage() {
+function RegisterPage() {
   const navigate = useNavigate();
 
-  const handleLogin = () => {
+  const handleRegister = () => {
+    // Aquí puedes añadir la lógica para manejar el registro
     navigate('/dashboard');
   };
 
@@ -15,7 +16,7 @@ function LoginPage() {
         <div className="image-container">
           <img
             src="/src/assets/images/login-image.jpg"
-            alt="Login visual"
+            alt="Register visual"
             className="login-image"
           />
         </div>
@@ -23,10 +24,24 @@ function LoginPage() {
         <div className="form-container">
           <div className="form-content">
             <div className="form-header">
-              <h2 className="form-title">Sign in to your account</h2>
+              <h2 className="form-title">Create a new account</h2>
             </div>
             <form className="login-form">
               <div className="form-fields">
+                <div className="form-field">
+                  <label htmlFor="name" className="form-label">
+                    Full Name
+                  </label>
+                  <input
+                    id="name"
+                    name="name"
+                    type="text"
+                    autoComplete="name"
+                    required
+                    className="form-input"
+                    placeholder="Full Name"
+                  />
+                </div>
                 <div className="form-field">
                   <label htmlFor="email" className="form-label">
                     Email address
@@ -49,34 +64,43 @@ function LoginPage() {
                     id="password"
                     name="password"
                     type="password"
-                    autoComplete="current-password"
+                    autoComplete="new-password"
                     required
                     className="form-input"
                     placeholder="Password"
+                  />
+                </div>
+                <div className="form-field">
+                  <label htmlFor="confirm-password" className="form-label">
+                    Confirm Password
+                  </label>
+                  <input
+                    id="confirm-password"
+                    name="confirm-password"
+                    type="password"
+                    autoComplete="new-password"
+                    required
+                    className="form-input"
+                    placeholder="Confirm Password"
                   />
                 </div>
               </div>
 
               <div className="form-links">
                 <div className="form-link">
-                  <Link to="/register" className="link-text">
-                    Register
-                  </Link>
-                </div>
-                <div className="form-link">
-                  <Link to="/forgot-password" className="link-text">
-                    Forgot your password?
+                  <Link to="/login" className="link-text">
+                    Already have an account? Sign in
                   </Link>
                 </div>
               </div>
 
               <div className="form-submit">
                 <Button
-                  onClick={handleLogin}
+                  onClick={handleRegister}
                   type="submit"
                   className="submit-button"
                 >
-                  Sign in
+                  Register
                 </Button>
               </div>
             </form>
@@ -87,4 +111,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+export default RegisterPage;

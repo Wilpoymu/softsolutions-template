@@ -1,9 +1,10 @@
-import { Modal, Form, Input, InputNumber, message } from 'antd';
-import { addProveedor } from '../../services/proveedores.service';
+import { Modal, Form, Input, DatePicker, message } from 'antd';
+import { crearEvento } from '../services/agenda.service';
 
-export default function AddProveedorModal({ onClose, isOpen }) {
+export default function AddEventModal({ onClose, isOpen }) {
   const [form] = Form.useForm();
   const [messageApi, contextHolder] = message.useMessage();
+
   const handleOk = () => {
     form
       .validateFields()
@@ -11,14 +12,14 @@ export default function AddProveedorModal({ onClose, isOpen }) {
         try {
           messageApi.open({
             type: 'loading',
-            content: 'Guardando proveedor...',
+            content: 'Guardando evento...',
             duration: 0,
           });
-          await addProveedor(values);
+          await crearEvento(values);
           messageApi.destroy();
           messageApi.open({
             type: 'success',
-            content: `${values.name} guardado correctamente`,
+            content: `${values.titulo} guardado correctamente`,
           });
           onClose(); // Cerrar el modal después de guardar
           form.resetFields(); // Resetear el formulario
@@ -31,7 +32,7 @@ export default function AddProveedorModal({ onClose, isOpen }) {
         }
       })
       .catch((errorInfo) => {
-        console.error('Error al guardar el proveedor:', errorInfo);
+        console.error('Error al guardar el evento:', errorInfo);
         messageApi.destroy();
         messageApi.open({
           type: 'error',
@@ -42,7 +43,7 @@ export default function AddProveedorModal({ onClose, isOpen }) {
 
   return (
     <Modal
-      title="Nuevo Proveedor"
+      title="Nuevo Evento"
       onCancel={onClose}
       onClose={onClose}
       onOk={handleOk}
@@ -52,56 +53,52 @@ export default function AddProveedorModal({ onClose, isOpen }) {
       {contextHolder}
       <Form form={form} layout="vertical">
         <Form.Item
-          name="name"
-          label="Nombre"
+          name="titulo"
+          label="Título"
           rules={[
             {
               required: true,
-              message: 'Por favor ingrese el nombre',
+              message: 'Por favor ingrese el título',
             },
           ]}
         >
           <Input />
         </Form.Item>
         <Form.Item
-          name="email"
-          label="Email"
+          name="descripcion"
+          label="Descripción"
           rules={[
             {
               required: true,
-              message: 'Por favor ingrese el correo electronico',
-            },
-            {
-              required: true,
-              message: 'Por favor ingresa tu correo',
+              message: 'Por favor ingrese la descripción',
             },
           ]}
         >
-          <Input />
+          <Input.TextArea />
         </Form.Item>
         <Form.Item
-          name="phone"
-          label="Telefono"
+          name="fechaInicio"
+          label="Fecha de Inicio"
           rules={[
             {
               required: true,
-              message: 'Por favor ingrese el telefono',
+              message: 'Por favor ingrese la fecha de inicio',
             },
           ]}
         >
-          <InputNumber controls={false} style={{ width: '100%' }} />
+          <DatePicker showTime />
         </Form.Item>
         <Form.Item
-          name="address"
-          label="Direccion"
+          name="fechaFin"
+          label="Fecha de Fin"
           rules={[
             {
               required: true,
-              message: 'Por favor ingrese la dirección',
+              message: 'Por favor ingrese la fecha de fin',
             },
           ]}
         >
-          <Input />
+          <DatePicker showTime />
         </Form.Item>
       </Form>
     </Modal>

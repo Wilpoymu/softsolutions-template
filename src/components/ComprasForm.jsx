@@ -14,30 +14,29 @@ import {
   Divider,
 } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
-import { addCotizacion, getCotizaciones } from '../services/cotizacion.service';
-import { getClients } from '../services/clients.service';
+import { getProducts } from '../services/products.service';
+import { getProveedores } from '../services/proveedores.service';
+import { addCompra } from '../services/compras.service.js';
 
 const { Option } = Select;
 
-export default function CotizacionesForm({ onClose }) {
+export default function ComprasForm({ onClose }) {
   const [form] = Form.useForm();
   const [messageApi, contextHolder] = message.useMessage();
-  const clients = useMemo(() => {
-    return getClients();
+  const proveedores = useMemo(() => {
+    return getProveedores();
   }, []);
-  const pedidos = useMemo(() => {
-    return getCotizaciones();
+  const products = useMemo(() => {
+    return getProducts();
   }, []);
   const [total, setTotal] = useState(0);
 
   const calculateTotal = () => {
-    const cotizaciones = form.getFieldValue('cotizaciones') || [];
-    const newTotal = cotizaciones?.reduce((acc, cotizacion) => {
-      const cotizacionDetails = cotizaciones.find(
-        (p) => p.id === cotizacion?.cotizacion,
-      );
-      const price = cotizacionDetails ? cotizacionDetails.price : 0;
-      return acc + cotizacion?.cantidad * price;
+    const productos = form.getFieldValue('productos') || [];
+    const newTotal = productos?.reduce((acc, producto) => {
+      const productDetails = products.find((p) => p.id === producto?.producto);
+      const price = productDetails ? productDetails.price : 0;
+      return acc + producto?.cantidad * price;
     }, 0);
     setTotal(newTotal);
   };
@@ -53,14 +52,14 @@ export default function CotizacionesForm({ onClose }) {
         try {
           messageApi.open({
             type: 'loading',
-            content: 'Guardando cotizacion...',
+            content: 'Guardando venta...',
             duration: 0,
           });
-          await addCotizacion(values);
+          await addCompra(values);
           messageApi.destroy();
           messageApi.open({
             type: 'success',
-            content: 'Nueva cotización guardada correctamente',
+            content: 'Nueva venta guardada correctamente',
           });
           onClose();
           form.resetFields();
@@ -73,7 +72,7 @@ export default function CotizacionesForm({ onClose }) {
         }
       })
       .catch((errorInfo) => {
-        console.error('Error al guardar la cotización:', errorInfo);
+        console.error('Error al guardar la venta:', errorInfo);
         messageApi.destroy();
         messageApi.open({
           type: 'error',
@@ -82,15 +81,15 @@ export default function CotizacionesForm({ onClose }) {
       });
   };
 
-  const handleCotizacionChange = (value, field) => {
-    const selectedCotizacion = cotizaciones.find((p) => p.id === value);
-    if (selectedCotizacion) {
+  const handleProductChange = (value, field) => {
+    const selectedProduct = products.find((p) => p.id === value);
+    if (selectedProduct) {
       form.setFieldsValue({
-        cotizaciones: form
-          .getFieldValue('cotizaciones')
+        productos: form
+          .getFieldValue('productos')
           .map((item, index) =>
             index === field.name
-              ? { ...item, precioUnitario: selectedCotizacion.price }
+              ? { ...item, precioUnitario: selectedProduct.price }
               : item,
           ),
       });
@@ -98,23 +97,23 @@ export default function CotizacionesForm({ onClose }) {
     }
   };
 
-  const calculateCotizacionTotal = (index) => {
-    const cotizaciones = form.getFieldValue('cotizaciones');
-    const cantidad = cotizaciones[index].cantidad || 0;
-    const precioUnitario = cotizaciones[index].precioUnitario || 0;
-    const totalCotizacion = cantidad * precioUnitario;
+  const calculateProductTotal = (index) => {
+    const productos = form.getFieldValue('productos');
+    const cantidad = productos[index].cantidad || 0;
+    const precioUnitario = productos[index].precioUnitario || 0;
+    const totalProducto = cantidad * precioUnitario;
 
-    const updatedCotizaciones = pedidos.map((item, i) =>
-      i === index ? { ...item, totalCotizacion } : item,
+    const updatedProductos = productos.map((item, i) =>
+      i === index ? { ...item, totalProducto } : item,
     );
 
-    form.setFieldsValue({ cotizaciones: updatedCotizaciones });
+    form.setFieldsValue({ productos: updatedProductos });
   };
 
   return (
     <div>
       {contextHolder}
-      <h1>Nueva Cotización</h1>
+      <h1>Nueva Venta</h1>
       <Form
         form={form}
         layout="vertical"
@@ -126,31 +125,31 @@ export default function CotizacionesForm({ onClose }) {
           borderRadius: '8px',
         }}
       >
-        <Divider orientation="left">Información del Cliente</Divider>
+        <Divider orientation="left">Información del Proveedor</Divider>
         <Row gutter={16}>
           <Col span={12}>
             <Form.Item
-              label="Cliente"
-              name="cliente"
+              label="Proveedor"
+              name="proveedor"
               rules={[
                 {
                   required: true,
-                  message: 'Por favor ingrese el cliente',
+                  message: 'Por favor ingrese el proveedor',
                 },
               ]}
             >
               <Select
                 showSearch
-                placeholder="Seleccione un cliente"
+                placeholder="Seleccione un proveedor"
                 optionFilterProp="children"
                 filterOption={(input, option) =>
                   option.children.toLowerCase().indexOf(input.toLowerCase()) >=
                   0
                 }
               >
-                {clients?.map((client) => (
-                  <Option key={client.id} value={client.id}>
-                    {client.name}
+                {proveedores?.map((proveedor) => (
+                  <Option key={proveedor.id} value={proveedor.id}>
+                    {proveedor.name}
                   </Option>
                 ))}
               </Select>
@@ -172,16 +171,16 @@ export default function CotizacionesForm({ onClose }) {
           </Col>
         </Row>
 
-        <Divider orientation="left">Cotizaciones</Divider>
-        <Form.List name="pedidos">
+        <Divider orientation="left">Productos</Divider>
+        <Form.List name="productos">
           {(fields, { add, remove }) => (
             <>
               {fields.map((field, index) => (
                 <Row gutter={16} key={field.key} align="middle">
                   <Col span={7}>
                     <Form.Item
-                      label={index === 0 ? 'Pedido' : ''}
-                      name={[field.name, 'pedido']}
+                      label={index === 0 ? 'Producto' : ''}
+                      name={[field.name, 'producto']}
                       rules={[
                         {
                           required: true,
@@ -193,9 +192,7 @@ export default function CotizacionesForm({ onClose }) {
                         showSearch
                         placeholder="Seleccione un producto"
                         optionFilterProp="children"
-                        onChange={(value) =>
-                          handleCotizacionChange(value, field)
-                        }
+                        onChange={(value) => handleProductChange(value, field)}
                       >
                         {products?.map((product) => (
                           <Option key={product.id} value={product.id}>
@@ -221,7 +218,7 @@ export default function CotizacionesForm({ onClose }) {
                         placeholder="Cantidad"
                         min={1}
                         onChange={() => {
-                          calculateCotizacionTotal(index);
+                          calculateProductTotal(index);
                           calculateTotal();
                         }}
                         style={{ width: '100%' }}
@@ -289,7 +286,7 @@ export default function CotizacionesForm({ onClose }) {
                   style={{ width: '100%', marginTop: '16px' }}
                   icon={<PlusOutlined />}
                 >
-                  Agregar cotización
+                  Agregar producto
                 </Button>
               </Form.Item>
             </>
@@ -317,7 +314,7 @@ export default function CotizacionesForm({ onClose }) {
           </Col>
         </Row>
 
-        <Divider orientation="left">Estado de la Cotizacion</Divider>
+        <Divider orientation="left">Estado de la compra</Divider>
         <Row gutter={16}>
           <Col span={12}>
             <Form.Item label="Pagado" name="pagado" valuePropName="checked">
@@ -337,7 +334,7 @@ export default function CotizacionesForm({ onClose }) {
 
         <Form.Item>
           <Button type="primary" onClick={handleOk} style={{ width: '100%' }}>
-            Guardar Cotización
+            Guardar compra
           </Button>
         </Form.Item>
 
@@ -351,6 +348,6 @@ export default function CotizacionesForm({ onClose }) {
   );
 }
 
-CotizacionesForm.propTypes = {
+ComprasForm.propTypes = {
   onClose: PropTypes.func.isRequired,
 };

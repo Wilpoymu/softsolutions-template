@@ -40,9 +40,9 @@ export class Pedido extends Parent {
         },
       },
       {
-         title: "Productos",
-         dataIndex: "productos",
-         key: "productos",
+        title: 'Productos',
+        dataIndex: 'productos',
+        key: 'productos',
       },
       {
         title: 'Total',

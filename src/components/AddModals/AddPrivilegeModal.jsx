@@ -1,7 +1,7 @@
-import { Modal, Form, Input, InputNumber, message } from 'antd';
-import { addProveedor } from '../../services/proveedores.service';
+import { Modal, Form, Input, message } from 'antd';
+import { addPrivilege } from '../../services/privileges.service';
 
-export default function AddProveedorModal({ onClose, isOpen }) {
+export default function AddPrivilegeModal({ onClose, isOpen }) {
   const [form] = Form.useForm();
   const [messageApi, contextHolder] = message.useMessage();
   const handleOk = () => {
@@ -11,10 +11,10 @@ export default function AddProveedorModal({ onClose, isOpen }) {
         try {
           messageApi.open({
             type: 'loading',
-            content: 'Guardando proveedor...',
+            content: 'Guardando privilegio...',
             duration: 0,
           });
-          await addProveedor(values);
+          await addPrivilege(values);
           messageApi.destroy();
           messageApi.open({
             type: 'success',
@@ -31,7 +31,7 @@ export default function AddProveedorModal({ onClose, isOpen }) {
         }
       })
       .catch((errorInfo) => {
-        console.error('Error al guardar el proveedor:', errorInfo);
+        console.error('Error al guardar el privilegio:', errorInfo);
         messageApi.destroy();
         messageApi.open({
           type: 'error',
@@ -42,7 +42,7 @@ export default function AddProveedorModal({ onClose, isOpen }) {
 
   return (
     <Modal
-      title="Nuevo Proveedor"
+      title="Nuevo Privilegio"
       onCancel={onClose}
       onClose={onClose}
       onOk={handleOk}
@@ -64,44 +64,16 @@ export default function AddProveedorModal({ onClose, isOpen }) {
           <Input />
         </Form.Item>
         <Form.Item
-          name="email"
-          label="Email"
+          name="description"
+          label="Descripción"
           rules={[
             {
               required: true,
-              message: 'Por favor ingrese el correo electronico',
-            },
-            {
-              required: true,
-              message: 'Por favor ingresa tu correo',
+              message: 'Por favor ingrese la descripción',
             },
           ]}
         >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          name="phone"
-          label="Telefono"
-          rules={[
-            {
-              required: true,
-              message: 'Por favor ingrese el telefono',
-            },
-          ]}
-        >
-          <InputNumber controls={false} style={{ width: '100%' }} />
-        </Form.Item>
-        <Form.Item
-          name="address"
-          label="Direccion"
-          rules={[
-            {
-              required: true,
-              message: 'Por favor ingrese la dirección',
-            },
-          ]}
-        >
-          <Input />
+          <Input.TextArea />
         </Form.Item>
       </Form>
     </Modal>
