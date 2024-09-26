@@ -5,6 +5,7 @@ import AddCategoryModal from './AddCategoryModal';
 import AddUserModal from './AddUserModal';
 import AddPrivilegeModal from './AddPrivilegeModal';
 import AddPermisoModal from './AddPermisoModal';
+import AddRoleModal from './AddRoleModal';
 
 export {
   AddProductModal,
@@ -14,4 +15,5 @@ export {
   AddUserModal,
   AddPrivilegeModal,
   AddPermisoModal,
+  AddRoleModal,
 };

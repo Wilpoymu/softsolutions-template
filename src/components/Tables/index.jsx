@@ -6,6 +6,8 @@ import { CategoriesTable } from './CategoriesTable.jsx';
 import { UsersTable } from './UsersTable.jsx';
 import { PrivilegesTable } from './PrivilegesTable.jsx';
 import { PermisosTable } from './PermisosTable.jsx';
+import { RolesTable } from './RolesTable.jsx';
+import { ComprasTable } from './ComprasTable.jsx';
 
 export {
   ClientsTable,
@@ -16,4 +18,6 @@ export {
   UsersTable,
   PrivilegesTable,
   PermisosTable,
+  RolesTable,
+  ComprasTable,
 };
