@@ -1,9 +1,27 @@
-import { Modal, Form, Input, InputNumber, message } from 'antd';
-import { addProduct } from '../../services/products.service';
+import { Modal, Form, Input, InputNumber, message, Select } from 'antd';
+import PropTypes from 'prop-types';
+import { useEffect, useState } from 'react';
+import { createProduct } from '../../services/products.service';
+import { getCategories } from '../../pages/Servicios/Categorias.page';
 
 export default function AddProductModal({ onClose, isOpen }) {
   const [form] = Form.useForm();
   const [messageApi, contextHolder] = message.useMessage();
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    async function fetchCategories() {
+      try {
+        const categoriesData = await getCategories();
+        const categoriesArray = categoriesData.$values || categoriesData;
+        setCategories(Array.isArray(categoriesArray) ? categoriesArray : []);
+      } catch (error) {
+        console.error('Error fetching categories:', error);
+      }
+    }
+    fetchCategories();
+  }, []);
+
   const handleOk = () => {
     form
       .validateFields()
@@ -14,7 +32,7 @@ export default function AddProductModal({ onClose, isOpen }) {
             content: 'Guardando producto...',
             duration: 0,
           });
-          await addProduct(values);
+          await createProduct(values);
           messageApi.destroy();
           messageApi.open({
             type: 'success',
@@ -94,18 +112,29 @@ export default function AddProductModal({ onClose, isOpen }) {
           <Input.TextArea />
         </Form.Item>
         <Form.Item
-          name="category"
+          name="categoryId"
           label="Categoría"
           rules={[
             {
               required: true,
-              message: 'Por favor ingrese la categoría',
+              message: 'Por favor seleccione la categoría',
             },
           ]}
         >
-          <Input />
+          <Select loading={categories.length === 0}>
+            {categories.map((category) => (
+              <Select.Option key={category.id} value={category.id}>
+                {category.name}
+              </Select.Option>
+            ))}
+          </Select>
         </Form.Item>
       </Form>
     </Modal>
   );
 }
+
+AddProductModal.propTypes = {
+  onClose: PropTypes.func.isRequired,
+  isOpen: PropTypes.bool.isRequired,
+};

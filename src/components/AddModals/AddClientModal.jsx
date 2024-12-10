@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { Modal, Form, Input, InputNumber, message } from 'antd';
 import { addClient } from '../../services/clients.service';
 
@@ -32,7 +33,7 @@ export default function AddClientModal({ onClose, isOpen }) {
       })
       .catch((errorInfo) => {
         messageApi.destroy();
-        console.log('Error al guardar el cliente:', errorInfo);
+        console.error('Error al guardar el cliente:', errorInfo);
         messageApi.open({
           type: 'error',
           content: 'Algo salió mal, por favor intente de nuevo',
@@ -93,3 +94,8 @@ export default function AddClientModal({ onClose, isOpen }) {
     </Modal>
   );
 }
+
+AddClientModal.propTypes = {
+  onClose: PropTypes.func.isRequired,
+  isOpen: PropTypes.bool.isRequired,
+};

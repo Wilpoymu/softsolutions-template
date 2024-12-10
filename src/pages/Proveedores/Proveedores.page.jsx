@@ -1,12 +1,31 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from 'antd';
 import { ProveedoresTable } from '../../components/Tables/ProveedoresTable';
-import { getProveedores } from '../../services/proveedores.service';
 import AddProveedorModal from '../../components/AddModals/AddProveedorModal';
+import axiosConfig from '../../utils/axiosConfig';
 
 const ProveedoresPage = () => {
   const [modalOpen, setModalOpen] = useState(false);
-  const dataSource = getProveedores();
+  const [dataSource, setDataSource] = useState([]);
+
+  useEffect(() => {
+    const fetchProveedores = async () => {
+      try {
+        const response = await axiosConfig.get('/Provider');
+        const data = response.data;
+        if (data && Array.isArray(data.$values)) {
+          setDataSource(data.$values);
+        } else {
+          console.error('Fetched data is not in the expected format:', data);
+        }
+      } catch (error) {
+        console.error('Error fetching proveedores:', error);
+      }
+    };
+
+    fetchProveedores();
+  }, []);
+
   return (
     <div>
       <div

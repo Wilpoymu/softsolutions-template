@@ -1,4 +1,5 @@
 import { Modal, Form, Input, InputNumber, message } from 'antd';
+import axios from 'axios';
 import { addProveedor } from '../../services/proveedores.service';
 
 export default function AddProveedorModal({ onClose, isOpen }) {
@@ -14,7 +15,9 @@ export default function AddProveedorModal({ onClose, isOpen }) {
             content: 'Guardando proveedor...',
             duration: 0,
           });
-          await addProveedor(values);
+          // Convert phone to string
+          values.phone = values.phone.toString();
+          await axios.post('http://localhost:5117/api/Provider', values);
           messageApi.destroy();
           messageApi.open({
             type: 'success',
@@ -89,7 +92,7 @@ export default function AddProveedorModal({ onClose, isOpen }) {
             },
           ]}
         >
-          <InputNumber controls={false} style={{ width: '100%' }} />
+          <Input />
         </Form.Item>
         <Form.Item
           name="address"

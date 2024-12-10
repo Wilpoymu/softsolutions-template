@@ -1,8 +1,9 @@
 import Parent from './parent.model';
 
 class Proveedor extends Parent {
-  constructor({ name, email, phone, address }) {
+  constructor({ id, name, email, phone, address }) {
     super();
+    this.id = id;
     this.name = name;
     this.email = email;
     this.phone = phone;

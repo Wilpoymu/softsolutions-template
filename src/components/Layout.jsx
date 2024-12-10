@@ -18,6 +18,7 @@ import {
   TeamOutlined,
   SolutionOutlined,
   HolderOutlined,
+  LogoutOutlined,
 } from '@ant-design/icons';
 import { Button, Layout, Menu, theme } from 'antd';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -172,6 +173,14 @@ const LayoutPage = ({ children }) => {
     navigate(key); // Cambiar la URL al seleccionar un item
   };
 
+  const handleLogout = () => {
+    // Logic for logout, e.g., clearing authentication tokens, redirecting to login page, etc.
+    document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'; // Clear authentication token from cookies
+    // You can add more logic here if needed, such as clearing user data from state
+
+    navigate('/login');
+  };
+
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
@@ -200,6 +209,19 @@ const LayoutPage = ({ children }) => {
           items={navItems}
           onClick={handleMenuClick}
         />
+        <Button
+          type="primary"
+          icon={<LogoutOutlined />}
+          onClick={handleLogout}
+          style={{
+            width: '100%',
+            marginTop: 'auto',
+            backgroundColor: '#ff4d4f',
+            borderColor: '#ff4d4f',
+          }}
+        >
+          Logout
+        </Button>
       </Sider>
       <Layout>
         <Header

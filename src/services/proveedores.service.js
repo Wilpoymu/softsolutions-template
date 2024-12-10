@@ -1,9 +1,19 @@
 import Proveedor from '../models/proveedor.model';
+import axiosConfig from '../utils/axiosConfig.js';
 
-export function getProveedores() {
-  return localStorage.getItem('proveedores') // Cambiado a 'proveedores'
-    ? JSON.parse(localStorage.getItem('proveedores')) // Cambiado a 'proveedores'
-    : [];
+export async function getProveedores() {
+  // return axiosConfig.get('/Provider')
+  //   .then(response => response.data)
+  //   .catch(error => {
+  //     throw error;
+  //   });
+  try {
+    const response = await axiosConfig.get('/Provider');
+    return response.data || [];
+  } catch (error) {
+    console.error('Error fetching providers:', error);
+    return [];
+  }
 }
 
 export function addProveedor(proveedor) {

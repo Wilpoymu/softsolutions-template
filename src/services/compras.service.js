@@ -1,26 +1,26 @@
 import { Compra } from '../models/compra.model.jsx';
+import axiosInstance from '../utils/axiosConfig';
 
-export function getCompras() {
-  return localStorage.getItem('compras')
-    ? JSON.parse(localStorage.getItem('compras'))
-    : [];
+export async function getCompras() {
+  try {
+    const response = await axiosInstance.get('/Buys');
+    if (response.data && response.data.$values) {
+      return response.data.$values.map(compra => ({
+        ...compra,
+        productos: compra.productos.$values
+      }));
+    }
+    return [];
+  } catch (error) {
+    console.error('Error fetching compras:', error);
+    return [];
+  }
 }
 
 export function addCompra(compra) {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      console.log('Adding compra', compra);
-      const newCompra = new Compra(compra);
-      console.log('New compra', newCompra);
-      try {
-        newCompra.validate();
-      } catch (error) {
-        reject(error);
-      }
-      const existingCompras = getCompras();
-      existingCompras.push(newCompra);
-      localStorage.setItem('compras', JSON.stringify(existingCompras));
-      resolve(newCompra);
-    }, 2000);
-  });
+  return axiosInstance.post('/Buys', compra)
+    .then(response => response.data)
+    .catch(error => {
+      throw error;
+    });
 }

@@ -17,29 +17,64 @@ import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { getProducts } from '../services/products.service';
 import { getProveedores } from '../services/proveedores.service';
 import { addCompra } from '../services/compras.service.js';
+import { Navigate } from 'react-router-dom';
 
 const { Option } = Select;
 
 export default function ComprasForm({ onClose }) {
   const [form] = Form.useForm();
   const [messageApi, contextHolder] = message.useMessage();
-  const proveedores = useMemo(() => {
-    return getProveedores();
+  const [proveedores, setProveedores] = useState([]);
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    const fetchProveedores = async () => {
+      try {
+        const response = await getProveedores();
+        if (response && response.$values && Array.isArray(response.$values)) {
+          setProveedores(response.$values);
+        } else {
+          console.error('Expected an array but got:', response);
+        }
+      } catch (error) {
+        console.error('Error fetching proveedores:', error);
+      }
+    };
+
+    const fetchProducts = async () => {
+      try {
+        const response = await getProducts();
+        if (response && Array.isArray(response.$values)) {
+          setProducts(response.$values);
+        } else {
+          console.error('Expected an array but got:', response);
+        }
+      } catch (error) {
+        if (error.response && error.response.status === 401) {
+          Navigate('/login');
+        } else {
+          console.error('Error fetching products:', error);
+        }
+      }
+    };
+
+    fetchProveedores();
+    fetchProducts();
   }, []);
-  const products = useMemo(() => {
-    return getProducts();
-  }, []);
+
   const [total, setTotal] = useState(0);
 
   const calculateTotal = () => {
     const productos = form.getFieldValue('productos') || [];
-    const newTotal = productos?.reduce((acc, producto) => {
-      const productDetails = products.find((p) => p.id === producto?.producto);
+    const newTotal = productos.reduce((acc, producto) => {
+      const productDetails = products.find((p) => p.id === producto.producto);
       const price = productDetails ? productDetails.price : 0;
-      return acc + producto?.cantidad * price;
+      return acc + producto.cantidad * price;
     }, 0);
     setTotal(newTotal);
   };
+
+  console.log(products);
 
   useEffect(() => {
     form.setFieldsValue({ total });
@@ -50,16 +85,26 @@ export default function ComprasForm({ onClose }) {
       .validateFields()
       .then(async (values) => {
         try {
+          const compra = {
+            proveedorId: values.proveedor,
+            productoIds: values.productos.map((producto) => producto.producto), // Extrae solo los IDs
+            total: values.total,
+            fechaInicio: values.fechaInicio.toISOString(),
+            fechaPago: values.fechaPago ? values.fechaPago.toISOString() : null,
+            pagado: values.pagado,
+            entregado: values.entregado,
+          };
+  
           messageApi.open({
             type: 'loading',
-            content: 'Guardando venta...',
+            content: 'Guardando compra...',
             duration: 0,
           });
-          await addCompra(values);
+          await addCompra(compra);
           messageApi.destroy();
           messageApi.open({
             type: 'success',
-            content: 'Nueva venta guardada correctamente',
+            content: 'Nueva compra guardada correctamente',
           });
           onClose();
           form.resetFields();
@@ -72,7 +117,7 @@ export default function ComprasForm({ onClose }) {
         }
       })
       .catch((errorInfo) => {
-        console.error('Error al guardar la venta:', errorInfo);
+        console.error('Error al guardar la compra:', errorInfo);
         messageApi.destroy();
         messageApi.open({
           type: 'error',
@@ -80,6 +125,7 @@ export default function ComprasForm({ onClose }) {
         });
       });
   };
+  
 
   const handleProductChange = (value, field) => {
     const selectedProduct = products.find((p) => p.id === value);

@@ -1,12 +1,33 @@
 import { Button } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import './styles.css';
+import { useState } from 'react';
+import axios from '../../utils/axiosConfig';
+import Cookies from 'js-cookie';
 
 function LoginPage() {
   const navigate = useNavigate();
+  const [userName, setUserName] = useState('');
+  const [password, setPassword] = useState('');
 
-  const handleLogin = () => {
-    navigate('/dashboard');
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post('http://localhost:5117/api/Account/login', {
+        userName, // Changed from email to userName
+        password
+      }, {
+        headers: {
+          'Content-Type': 'application/json',
+          'accept': 'application/json'
+        }
+      });
+      const token = response.data.token;
+      Cookies.set('token', token);
+      navigate('/dashboard');
+    } catch (error) {
+      console.error('Login failed:', error);
+    }
   };
 
   return (
@@ -25,20 +46,22 @@ function LoginPage() {
             <div className="form-header">
               <h2 className="form-title">Sign in to your account</h2>
             </div>
-            <form className="login-form">
+            <form className="login-form" onSubmit={handleLogin}>
               <div className="form-fields">
                 <div className="form-field">
-                  <label htmlFor="email" className="form-label">
-                    Email address
+                  <label htmlFor="userName" className="form-label">
+                    Username
                   </label>
                   <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    autoComplete="email"
+                    id="userName"
+                    name="userName"
+                    type="text"
+                    autoComplete="text"
                     required
                     className="form-input"
-                    placeholder="Email address"
+                    placeholder="Username"
+                    value={userName}
+                    onChange={(e) => setUserName(e.target.value)}
                   />
                 </div>
                 <div className="form-field">
@@ -53,6 +76,8 @@ function LoginPage() {
                     required
                     className="form-input"
                     placeholder="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
               </div>
@@ -72,9 +97,9 @@ function LoginPage() {
 
               <div className="form-submit">
                 <Button
-                  onClick={handleLogin}
-                  type="submit"
+                  type="button" // Changed from "submit" to "button"
                   className="submit-button"
+                  onClick={handleLogin} // Moved onClick handler here
                 >
                   Sign in
                 </Button>

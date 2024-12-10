@@ -23,13 +23,14 @@ export class Compra extends Parent {
     this.entregado = entregado;
   }
 
-  static get columns() {
-    const proveedores = getProveedores();
+  static async getColumns() {
+    const response = await getProveedores();
+    const proveedores = response.$values || [];
     return [
       {
         title: 'Proveedor',
-        dataIndex: 'proveedor',
-        key: 'proveedor',
+        dataIndex: 'proveedorId',
+        key: 'proveedorId',
         render: (proveedorId) => {
           const proveedor = proveedores.find((p) => p.id === proveedorId);
           if (!proveedor) {

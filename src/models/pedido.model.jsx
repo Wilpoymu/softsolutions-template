@@ -33,8 +33,6 @@ export class Pedido extends Parent {
         dataIndex: 'cliente', // Asumiendo que en tu data la clave es clienteId
         key: 'cliente',
         render: (clienteId) => {
-          console.log(clienteId);
-          console.log(clientes);
           const cliente = clientes.find((c) => c.id === clienteId);
           return cliente ? cliente.name : 'Desconocido';
         },

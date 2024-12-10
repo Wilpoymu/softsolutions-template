@@ -1,9 +1,14 @@
 import Category from '../models/category.model';
+import axiosConfig from '../utils/axiosConfig.js';
 
-export function getCategories() {
-  return localStorage.getItem('categories')
-    ? JSON.parse(localStorage.getItem('categories'))
-    : [];
+export async function getCategories() {
+  try {
+    const response = await axiosConfig.get('/Category');
+    return response.data.$values || [];
+  } catch (error) {
+    console.error('Error fetching categories:', error);
+    return [];
+  }
 }
 
 export function addCategory(category) {

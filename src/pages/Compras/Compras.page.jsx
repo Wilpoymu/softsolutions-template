@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from 'antd';
 import { ComprasTable } from '../../components/Tables';
 import { getCompras } from '../../services/compras.service.js';
@@ -6,7 +6,16 @@ import ComprasForm from '../../components/ComprasForm';
 
 const ComprasPage = () => {
   const [modalOpen, setModalOpen] = useState(false);
-  const dataSource = getCompras();
+  const [dataSource, setDataSource] = useState([]);
+
+  useEffect(() => {
+    const fetchCompras = async () => {
+      const compras = await getCompras();
+      setDataSource(compras);
+    };
+    fetchCompras();
+  }, []);
+
   return (
     <div>
       {!modalOpen && (
