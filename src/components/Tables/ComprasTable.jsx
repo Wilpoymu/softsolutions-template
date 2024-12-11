@@ -6,10 +6,12 @@ import { Compra } from '../../models/compra.model';
 import * as XLSX from 'xlsx';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
+import { useNavigate } from 'react-router-dom';
 
 const { RangePicker } = DatePicker;
 
-export function ComprasTable({ dataSource }) {
+export function ComprasTable({ dataSource, onEdit, onDelete }) {
+  const navigate = useNavigate();
   const [columns, setColumns] = useState([]);
   const [searchText, setSearchText] = useState('');
   const [searchedColumn, setSearchedColumn] = useState('');
@@ -22,10 +24,23 @@ export function ComprasTable({ dataSource }) {
   useEffect(() => {
     const fetchColumns = async () => {
       const cols = await Compra.getColumns();
-      setColumns(cols.map(col => ({
-        ...col,
-        ...getColumnSearchProps(col.dataIndex),
-      })));
+      setColumns([
+        ...cols.map(col => ({
+          ...col,
+          ...getColumnSearchProps(col.dataIndex),
+        })),
+        {
+          title: 'Acciones',
+          key: 'acciones',
+          render: (_, record) => (
+            <>
+              <Button onClick={() => onEdit(record)}>Editar</Button>
+              <Button onClick={() => onDelete(record)} danger>Eliminar</Button>
+              <Button onClick={() => navigate(`/compras/${record.id}`)}>Ver Detalles</Button>
+            </>
+          ),
+        },
+      ]);
     };
     fetchColumns();
   }, []);
@@ -128,4 +143,6 @@ export function ComprasTable({ dataSource }) {
 
 ComprasTable.propTypes = {
   dataSource: PropTypes.array.isRequired,
+  onEdit: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
 };

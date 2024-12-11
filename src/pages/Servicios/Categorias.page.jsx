@@ -1,12 +1,15 @@
 import { useState, useEffect } from 'react';
-import { Button } from 'antd';
+import { Button, Modal } from 'antd';
 import { CategoriesTable } from '../../components/Tables';
-import { getCategories } from '../../services/categories.service';
+import { getCategories, deleteCategory } from '../../services/categories.service';
 import { AddCategoryModal } from '../../components/AddModals';
 
 const CategoriasPage = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [dataSource, setDataSource] = useState([]);
+  const [editingCategory, setEditingCategory] = useState(null);
+  const [deleteModalVisible, setDeleteModalVisible] = useState(false);
+  const [categoryToDelete, setCategoryToDelete] = useState(null);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -19,6 +22,27 @@ const CategoriasPage = () => {
     };
     fetchCategories();
   }, []);
+
+  const handleEdit = (category) => {
+    setEditingCategory(category);
+    setModalOpen(true);
+  };
+
+  const handleDelete = (category) => {
+    setCategoryToDelete(category);
+    setDeleteModalVisible(true);
+  };
+
+  const confirmDelete = async () => {
+    try {
+      await deleteCategory(categoryToDelete.id);
+      setDataSource(dataSource.filter(c => c.id !== categoryToDelete.id));
+      setDeleteModalVisible(false);
+      setCategoryToDelete(null);
+    } catch (error) {
+      console.error('Error deleting category:', error);
+    }
+  };
 
   return (
     <div>
@@ -34,11 +58,20 @@ const CategoriasPage = () => {
           Agregar Categoría
         </Button>
       </div>
-      <CategoriesTable dataSource={dataSource} />
+      <CategoriesTable dataSource={dataSource} onEdit={handleEdit} onDelete={handleDelete} />
       <AddCategoryModal
         isOpen={modalOpen}
         onClose={() => setModalOpen(false)}
+        initialData={editingCategory}
       />
+      <Modal
+        title="Confirmar eliminación"
+        visible={deleteModalVisible}
+        onOk={confirmDelete}
+        onCancel={() => setDeleteModalVisible(false)}
+      >
+        <p>¿Está seguro de que desea eliminar esta categoría?</p>
+      </Modal>
     </div>
   );
 };

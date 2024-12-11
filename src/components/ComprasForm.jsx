@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-import { useMemo, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Form,
   InputNumber,
@@ -16,12 +16,13 @@ import {
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { getProducts } from '../services/products.service';
 import { getProveedores } from '../services/proveedores.service';
-import { addCompra } from '../services/compras.service.js';
+import { addCompra, editCompra } from '../services/compras.service.js';
 import { Navigate } from 'react-router-dom';
+import moment from 'moment';
 
 const { Option } = Select;
 
-export default function ComprasForm({ onClose }) {
+export default function ComprasForm({ onClose, initialData }) {
   const [form] = Form.useForm();
   const [messageApi, contextHolder] = message.useMessage();
   const [proveedores, setProveedores] = useState([]);
@@ -62,6 +63,25 @@ export default function ComprasForm({ onClose }) {
     fetchProducts();
   }, []);
 
+  useEffect(() => {
+    if (initialData) {
+      form.setFieldsValue({
+        proveedor: initialData.proveedorId,
+        productos: initialData.productos.map(producto => ({
+          producto: producto.id,
+          cantidad: producto.cantidad,
+          precioUnitario: producto.precioUnitario,
+          totalProducto: producto.totalProducto,
+        })),
+        total: initialData.total,
+        fechaInicio: moment(initialData.fechaInicio),
+        fechaPago: initialData.fechaPago ? moment(initialData.fechaPago) : null,
+        pagado: initialData.pagado,
+        entregado: initialData.entregado,
+      });
+    }
+  }, [initialData, form]);
+
   const [total, setTotal] = useState(0);
 
   const calculateTotal = () => {
@@ -100,11 +120,17 @@ export default function ComprasForm({ onClose }) {
             content: 'Guardando compra...',
             duration: 0,
           });
-          await addCompra(compra);
+          
+          if (initialData) {
+            await editCompra(initialData.id, compra);
+          } else {
+            await addCompra(compra);
+          }
+
           messageApi.destroy();
           messageApi.open({
             type: 'success',
-            content: 'Nueva compra guardada correctamente',
+            content: 'Compra guardada correctamente',
           });
           onClose();
           form.resetFields();
@@ -396,4 +422,5 @@ export default function ComprasForm({ onClose }) {
 
 ComprasForm.propTypes = {
   onClose: PropTypes.func.isRequired,
+  initialData: PropTypes.object,
 };

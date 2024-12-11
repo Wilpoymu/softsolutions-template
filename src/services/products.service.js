@@ -46,3 +46,33 @@ export function addProduct(product) {
     }
   });
 }
+
+export async function getProductById(id) {
+  try {
+    const response = await axiosConfig.get(`/Product/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching product details:', error);
+    return null;
+  }
+}
+
+export async function updateProduct(id, product) {
+  try {
+    const response = await axiosConfig.put(`/Product/${id}`, product);
+    return response.data;
+  } catch (error) {
+    console.error('Error updating product:', error);
+    throw error;
+  }
+}
+
+export async function deleteProduct(id) {
+  try {
+    const response = await axiosConfig.delete(`/Product/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error deleting product:', error);
+    throw error;
+  }
+}

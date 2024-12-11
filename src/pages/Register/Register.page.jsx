@@ -1,13 +1,29 @@
-import { Button } from 'antd';
+import { Button, message } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
+import axiosInstance from '../../utils/axiosConfig';
 import './styles.css';
 
 function RegisterPage() {
   const navigate = useNavigate();
 
-  const handleRegister = () => {
-    // Aquí puedes añadir la lógica para manejar el registro
-    navigate('/dashboard');
+  const handleRegister = async (event) => {
+    event.preventDefault();
+    const { username, email, password } = event.target.elements;
+
+    try {
+      const response = await axiosInstance.post('/Account/register', {
+        userName: username.value,
+        email: email.value,
+        password: password.value,
+      });
+
+      if (response.status === 200) {
+        message.success('Registration successful!');
+        navigate('/login');
+      }
+    } catch (error) {
+      message.error('Registration failed. Please try again.');
+    }
   };
 
   return (
@@ -26,20 +42,20 @@ function RegisterPage() {
             <div className="form-header">
               <h2 className="form-title">Create a new account</h2>
             </div>
-            <form className="login-form">
+            <form className="login-form" onSubmit={handleRegister}>
               <div className="form-fields">
                 <div className="form-field">
-                  <label htmlFor="name" className="form-label">
-                    Full Name
+                  <label htmlFor="username" className="form-label">
+                    Username
                   </label>
                   <input
-                    id="name"
-                    name="name"
+                    id="username"
+                    name="username"
                     type="text"
-                    autoComplete="name"
+                    autoComplete="username"
                     required
                     className="form-input"
-                    placeholder="Full Name"
+                    placeholder="Username"
                   />
                 </div>
                 <div className="form-field">
@@ -95,13 +111,12 @@ function RegisterPage() {
               </div>
 
               <div className="form-submit">
-                <Button
-                  onClick={handleRegister}
+                <button
                   type="submit"
                   className="submit-button"
                 >
                   Register
-                </Button>
+                </button>
               </div>
             </form>
           </div>

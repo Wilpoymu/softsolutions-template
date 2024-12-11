@@ -19,6 +19,10 @@ import RegisterPage from './pages/Register/Register.page';
 import ProductosPage from './pages/Productos/Productos.page';
 import ServiciosPage from './pages/Servicios/Servicios.page';
 import RecoverPasswordPage from './pages/RecoverPassword/RecoverPassword.page';
+import CompraDetailsPage from './pages/Compras/CompraDetails.page';
+import ProductoDetailsPage from './pages/Productos/ProductoDetails.page';
+import CategoriaDetailsPage from './pages/Servicios/CategoriaDetails.page';
+import ProveedorDetailsPage from './pages/Proveedores/ProveedorDetails.page';
 
 const router = createBrowserRouter([
   {
@@ -58,10 +62,26 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: '/compras/productos/:id',
+        element: (
+          <LayoutPage>
+            <ProductoDetailsPage />
+          </LayoutPage>
+        ),
+      },
+      {
         path: 'proveedores',
         element: (
           <LayoutPage>
             <ProveedoresPage />
+          </LayoutPage>
+        ),
+      },
+      {
+        path: '/compras/proveedores/:id',
+        element: (
+          <LayoutPage>
+            <ProveedorDetailsPage />
           </LayoutPage>
         ),
       },
@@ -83,6 +103,14 @@ const router = createBrowserRouter([
         element: (
           <LayoutPage>
             <CategoriasPage />
+          </LayoutPage>
+        ),
+      },
+      {
+        path: '/servicios/categoria/:id',
+        element: (
+          <LayoutPage>
+            <CategoriaDetailsPage />
           </LayoutPage>
         ),
       },
@@ -177,6 +205,14 @@ const router = createBrowserRouter([
   },
   {
     path: '/register',
+    element: <RegisterPage />,
+  },
+  {
+    path: '/login',
+    element: <LoginPage />,
+  },
+  {
+    path: '/register',
     element: (
       <LayoutPage>
         <RegisterPage />
@@ -196,6 +232,14 @@ const router = createBrowserRouter([
     element: (
       <LayoutPage>
         <RecoverPasswordPage />
+      </LayoutPage>
+    ),
+  },
+  {
+    path: '/compras/:id',
+    element: (
+      <LayoutPage>
+        <CompraDetailsPage />
       </LayoutPage>
     ),
   },

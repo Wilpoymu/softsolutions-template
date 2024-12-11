@@ -22,6 +22,7 @@ import {
 } from '@ant-design/icons';
 import { Button, Layout, Menu, theme } from 'antd';
 import { useNavigate, useLocation } from 'react-router-dom';
+import Cookies from 'js-cookie';
 const { Header, Sider, Content } = Layout;
 
 const navItems = [
@@ -145,6 +146,10 @@ const LayoutPage = ({ children }) => {
   const [selectedTitle, setSelectedTitle] = useState('');
   const navigate = useNavigate();
   const location = useLocation();
+  const token = Cookies.get('token');
+  const filteredNavItems = token
+    ? navItems
+    : navItems.filter(item => item.key === '/register' || item.key === '/login');
 
   useEffect(() => {
     const findItem = (items, path) => {
@@ -206,22 +211,24 @@ const LayoutPage = ({ children }) => {
           theme="dark"
           mode="inline"
           selectedKeys={[location.pathname]}
-          items={navItems}
+          items={filteredNavItems}
           onClick={handleMenuClick}
         />
-        <Button
-          type="primary"
-          icon={<LogoutOutlined />}
-          onClick={handleLogout}
-          style={{
-            width: '100%',
-            marginTop: 'auto',
-            backgroundColor: '#ff4d4f',
-            borderColor: '#ff4d4f',
-          }}
-        >
-          Logout
-        </Button>
+        {token && (
+          <Button
+            type="primary"
+            icon={<LogoutOutlined />}
+            onClick={handleLogout}
+            style={{
+              width: '100%',
+              marginTop: 'auto',
+              backgroundColor: '#ff4d4f',
+              borderColor: '#ff4d4f',
+            }}
+          >
+            Logout
+          </Button>
+        )}
       </Sider>
       <Layout>
         <Header

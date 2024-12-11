@@ -36,3 +36,32 @@ export function addProveedor(proveedor) {
     }, 2000);
   });
 }
+
+
+export async function getProveedorById(id) {
+  try {
+    const response = await axiosConfig.get(`/Provider/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching provider by ID:', error);
+    throw error;
+  }
+}
+
+export async function deleteProveedor(id) {
+  try {
+    await axiosConfig.delete(`/Provider/${id}`);
+  } catch (error) {
+    console.error('Error deleting provider:', error);
+    throw error;
+  }
+}
+
+export async function updateProveedor(id, proveedor) {
+  try {
+    await axiosConfig.put(`/Provider/${id}`, proveedor);
+  } catch (error) {
+    console.error('Error updating provider:', error);
+    throw error;
+  }
+}

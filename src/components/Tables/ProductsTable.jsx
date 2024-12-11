@@ -6,13 +6,15 @@ import { useState, useEffect } from 'react';
 import * as XLSX from 'xlsx';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
+import { useNavigate } from 'react-router-dom';
 
 const { RangePicker } = DatePicker;
 
-export function ProductsTable({ dataSource }) {
+export function ProductsTable({ dataSource, onEdit, onDelete }) {
   const [searchText, setSearchText] = useState('');
   const [searchedColumn, setSearchedColumn] = useState('');
   const [filteredData, setFilteredData] = useState(dataSource);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setFilteredData(dataSource);
@@ -100,10 +102,23 @@ export function ProductsTable({ dataSource }) {
     },
   });
 
-  const columns = Product.columns.map(col => ({
-    ...col,
-    ...getColumnSearchProps(col.dataIndex),
-  }));
+  const columns = [
+    ...Product.columns.map(col => ({
+      ...col,
+      ...getColumnSearchProps(col.dataIndex),
+    })),
+    {
+      title: 'Acciones',
+      key: 'acciones',
+      render: (_, record) => (
+        <>
+          <Button onClick={() => onEdit(record)}>Editar</Button>
+          <Button onClick={() => onDelete(record)} danger>Eliminar</Button>
+          <Button onClick={() => navigate(`/compras/productos/${record.id}`)}>Ver Detalles</Button>
+        </>
+      ),
+    },
+  ];
 
   return (
     <>
@@ -117,4 +132,6 @@ export function ProductsTable({ dataSource }) {
 
 ProductsTable.propTypes = {
   dataSource: PropTypes.array.isRequired,
+  onEdit: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
 };
